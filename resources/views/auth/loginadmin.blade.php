@@ -2,50 +2,57 @@
 
 @section('content')
 
-<!-- Signin Code -->
-<div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content" id="myModalLabel1">
-      <div class="modal-body">
-        <!-- Nav tabs -->
-        {{-- <ul class="nav nav-tabs nav-advance theme-bg" role="tablist"> --}}
-          {{-- <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#employer" role="tab"> <i class="ti-user"></i> Job Seeker</a> </li> --}}
-          <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#candidate" role="tab"> <i class="ti-user"></i> Job Provider</a> </li>
-        {{-- </ul> --}}
-        <!-- Nav tabs --> 
-        <!-- Tab panels -->
-        <div class="tab-content"> 
-          <!-- Employer Panel 1-->
-          <div class="tab-pane fade in show active" id="employer" role="tabpanel">
-            <form action="{{ route ('loginemployer')}}" method="POST">
-            @csrf
-              <div class="form-group">
-                <label>Email</label>
-                <input type="text" class="form-control" placeholder="Email Address" required>
-              </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" placeholder="********" required>
-              </div>
-              <div class="form-group"> <span class="custom-checkbox">
-                <input type="checkbox" id="4">
-                <label for="4"></label>
-                Remember Me </span> <a href="#" title="Forget" class="fl-right">Forgot Password?</a> 
-			  </div>
-              <div class="form-group text-center">
-                <button type="button" class="btn theme-btn full-width btn-m">LogIn</button>
-              </div>
-            </form>
-			<div class="log-option"><span>OR</span></div>
-			<div class="row">
-              <div class="col-md-6"> <a href="#" title="" class="fb-log-btn log-btn"><i class="fa fa-facebook"></i> Facebook</a> </div>
-              <div class="col-md-6"> <a href="#" title="" class="gplus-log-btn log-btn"><i class="fa fa-google"></i> Google</a> </div>
-            </div>
-          </div>
-          <!--/.Panel 1--> 
-      </div>
+<!-- ======================= Start Page Title ===================== -->
+<div class="page-title">
+  <div class="container">
+    <div class="page-caption">
+      <h2>Login As Admin</h2>
+      <p><a href="{{url('/')}}" title="Home">Home</a> <i class="ti-angle-double-right"></i> Login</p>
     </div>
   </div>
 </div>
+<!-- ======================= End Page Title ===================== --> 
+
+<!-- Signin Code -->
+<section class="padd-top-80 padd-bot-80">
+  <div class="container">
+      <div class="log-box">
+        <form class="log-form" action="{{ route ('loginadmin')}}" method="POST">
+        @csrf
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email')}}" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" placeholder="********" required>
+              </div>
+            </div>
+            <div class="form-group"> 
+                <a href="#" title="Forget" class="fl-right">Forgot Password?</a>
+            <div class="col-md-12">
+              <div class="form-group text-center mrg-top-15">
+                <button type="submit" class="btn theme-btn btn-m full-width">Login</button>
+              </div>
+            </div>
+			      <div class="clearfix"></div>	
+
+            <!-- validation errors -->
+
+            @if ($errors->any())
+              <ul class="px-4 py-2 bg-red-100">
+                @foreach($errors->all() as $error)
+                  <li class="my-2 text-red-500">{{ $error }}</li>  
+                @endforeach
+              </ul>
+            @endif		
+
+        </form>
+      </div>
+  </div>
+</section>
 @endsection
 <!-- End Sign in--> 

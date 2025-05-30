@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class AuthAdminController extends Controller
 {
@@ -32,8 +33,21 @@ class AuthAdminController extends Controller
 
         return view('welcome');
     }
-    public function login()
+    public function login(Request $request)
     {
-        
+         $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        if (Auth::attempt($validated)) {
+            $request->session()->regenerate();
+
+            return view('welcome');
+        }
+
+       throw ValidationException::withMessages([
+        'credentioals' => 'Sorry incorrect credentials'
+       ]);
     }
 }
