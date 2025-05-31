@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthEmployerController;
 use App\Http\Controllers\AuthJobSeekerController;
+use App\Http\Controllers\Employer\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,3 +28,9 @@ Route::get('/admin/login',[AuthAdminController::class, 'showLogin'])->name('show
 Route::post('/admin/register',[AuthAdminController::class, 'register'])->name('registeradmin');
 Route::post('/admin/login',[AuthAdminController::class, 'login'])->name('loginadmin');
 // Route::post('/admin/logout',[AuthAdminController::class, 'logout'])->name('logoutadmin');
+
+// Employer Dashboard
+Route::middleware(['auth:employer'])->group(function () {
+    Route::get('/employer/dashboard', [DashboardController::class, 'index'])->name('employer.dashboard');
+});
+
