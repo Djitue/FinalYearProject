@@ -40,9 +40,10 @@ Route::middleware(['auth:employer'])->group(function () {
     Route::get('/employer/change-password', [ProfileController::class, 'changePasswordForm'])->name('employer.change-password');
     Route::post('/employer/change-password', [ProfileController::class, 'updatePassword'])->name('employer.update-password');
     // Logout
-    Route::post('/employer/logout', function () {
-        Auth::guard('employer')->logout();
-        return redirect('/employer/login');
-    })->name('employer.logout');
+    Route::post('/employer/logout', [AuthEmployerController::class, 'logout'])->name('employer.logout');
+
+    Route::delete('/employer/delete-account', [ProfileController::class, 'destroy'])->name('employer.delete-account');
+
+
 });
 

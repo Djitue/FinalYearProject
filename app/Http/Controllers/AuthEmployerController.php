@@ -44,9 +44,13 @@ class AuthEmployerController extends Controller
         return back()->withErrors(['email' => 'Invalid credentials']);
     }
 
-    // public function logout()
-    // {
-    //     Auth::guard('employer')->logout();
-    //     return redirect()->route('employer.login');
-    // }
+    public function logout(Request $request)
+    {
+       Auth::guard('employer')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/'); // or redirect to login page  
+    }
 }

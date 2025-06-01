@@ -85,4 +85,23 @@ class ProfileController extends Controller
         return redirect()->route('employer.dashboard')->with('success', 'Password changed successfully.');
     }
 
+    public function destroy(Request $request)
+    {
+        $employer = Auth::guard('employer')->user();
+
+        // Delete profile picture from storage if it exists
+        if ($employer->profile_picture) {
+            Storage::disk('public')->delete($employer->profile_picture);
+        }
+
+        // Log out the employer before deleting the account
+        Auth::guard('employer')->logout();
+
+        // Delete the account
+        $employer->delete();
+
+        // Redirect to homepage or login with a message
+        return redirect('/')->with('success', 'Your account has been deleted successfully.');
+    }
+
 }
