@@ -21,6 +21,7 @@
 		<div id="leftcol_item">
 		  	<div class="user_dashboard_pic"> 
 		  		<img src="{{ asset('storage/' . $employer->profile_picture) }}" width="100" class="mb-2 mt-2 rounded">
+				<span class="user-photo-action">{{ Auth::guard('employer')->user()->name }}</span>
 		   	</div>
 		</div>
 		<div class="dashboard_nav_item">

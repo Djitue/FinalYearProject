@@ -17,46 +17,71 @@
 <section class="padd-top-80 padd-bot-80">
   <div class="container">
     <div class="row"> 
+      <div class="col-md-3">
+        <div id="leftcol_item">
+          <div class="user_dashboard_pic"> 
+            <img src="{{ asset('storage/' . $employer->profile_picture) }}" width="100" class="mb-2 mt-2 rounded"> 
+            <span class="user-photo-action">{{ Auth::guard('employer')->user()->name }}</span>
+          </div>
+        </div>
+        <div class="dashboard_nav_item">
+          <ul>
+            <li><a href="{{ route('employer.dashboard') }}"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
+            <li><a href="{{ route('employer.edit-profile') }}"><i class="login-icon ti-user"></i> Edit Profile</a></li>
+            <li class="active"><a href="{{ route('employer.change-password') }}"><i class="login-icon ti-key"></i> Change Password</a></li>
+            <li><a href="{{ route('employer.logout') }}"><i class="login-icon ti-power-off"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-9">
         <form method="POST" action="{{ route('employer.update-password') }}">
-        @csrf
-            <div class="col-md-3">
-                <div id="leftcol_item">
-                <div class="user_dashboard_pic"> <img alt="user photo" src="assets/img/user-profile.png"> <span class="user-photo-action">User Title</span> </div>
-                </div>
-                <div class="dashboard_nav_item">
+          @csrf
+          <div class="profile_detail_block">
+            @if(session('success'))
+              <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if(session('error'))
+              <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+            @if ($errors->any())
+              <div class="alert alert-danger">
                 <ul>
-                    <li><a href="{{route('employer.dashboard')}}"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
-                    <li><a href="{{route('employer.update-profile')}}"><i class="login-icon ti-user"></i> Edit Profile</a></li>
-                    <li class="active"><a href="{{route('employer.update-password')}}"><i class="login-icon ti-key"></i> Change Password</a></li>
-                    <li><a href="#"><i class="login-icon ti-power-off"></i> Logout</a></li>
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
                 </ul>
-                </div>
+              </div>
+            @endif
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label>Current Password</label>
+                <input type="password" name="current_password" class="form-control" placeholder="Enter current password" required>
+              </div>
             </div>
-            <div class="col-md-9">
-                <div class="profile_detail_block">
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Old Password</label>
-                        <input type="text" class="form-control" placeholder="***********">
-                    </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="text" class="form-control" placeholder="***********">
-                    </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>New Password</label>
-                        <input type="text" class="form-control" placeholder="***********">
-                    </div>
-                    </div>	
-                    <div class="clearfix"></div>
-                    <div class="col-md-12 padd-top-10 text-center"> <a href="#" class="btn btn-m theme-btn full-width">Update</a></div>
-                </div>
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label>New Password</label>
+                <input type="password" name="new_password" class="form-control" placeholder="Enter new password" required>
+              </div>
             </div>
-        </form>	  
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" name="new_password_confirmation" class="form-control" placeholder="Confirm new password" required>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="col-md-12 padd-top-10 text-center">
+              <button type="submit" class="btn btn-m theme-btn full-width">Update Password</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </section>

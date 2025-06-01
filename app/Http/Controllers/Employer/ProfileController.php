@@ -62,7 +62,8 @@ class ProfileController extends Controller
 
     public function changePasswordForm()
     {
-        return view('employer.change-password');
+        $employer = Auth::guard('employer')->user();
+        return view('employer.change-password', compact('employer'));
     }
 
     public function updatePassword(Request $request)
