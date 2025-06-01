@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Http\Controllers\Employer;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage; 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
+class ProfileController extends Controller
+{
+    public function edit()
+    {
+        $employer = Auth::guard('employer')->user();
+        return view('employer.edit-profile', compact('employer'));
+    }
+
+    public function update(Request $request)
+    {
+        $employer = Auth::user(); // get the currently authenticated employer
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:employers,email,' . Auth::id(),
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'gender' => 'nullable|string',
+            'facebook' => 'nullable|url',
+            'linkedin' => 'nullable|url',
+            'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // Assign the fields manually
+        $employer = Auth::user(); // get the currently authenticated employer
+
+         // Handle profile picture upload
+        if ($request->hasFile('profile_picture')) {
+            // Delete old picture if it exists
+            if ($employer->profile_picture && \Storage::exists($employer->profile_picture)) {
+                Storage::delete($employer->profile_picture);
+            }
+
+            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $employer->profile_picture = $path;
+        }
+
+        
+        // Update other fields
+        $employer->name = $request->name;
+        $employer->email = $request->email;
+        $employer->phone = $request->phone;
+        $employer->address = $request->address;
+        $employer->gender = $request->gender;
+        $employer->facebook = $request->facebook;
+        $employer->linkedin = $request->linkedin;
+
+        $employer->save(); // Save changes to the database
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
+
+    public function changePasswordForm()
+    {
+        return view('employer.change-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
+        ]);
+
+        $employer = Auth::guard('employer')->user();
+
+        if (!Hash::check($request->current_password, $employer->password)) {
+            return back()->withErrors(['current_password' => 'Current password does not match']);
+        }
+
+        $employer->password = Hash::make($request->new_password);
+        $employer->save();
+
+        return redirect()->route('employer.dashboard')->with('success', 'Password changed successfully.');
+    }
+
+}

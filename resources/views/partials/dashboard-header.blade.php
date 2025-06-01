@@ -7,21 +7,22 @@
 <meta name="description" content="">
 <meta http-equiv="Content-Type"content="text/html;charset=UTF-8"/>
 <meta name="viewport"content="width=device-width, initial-scale=1.0">
-<title>:: Escort - Job Portal HTML Template ::</title>
+<title>JobSphere 237</title>
 
 <!-- Favicon Icon -->
 <link rel="shortcut icon" href="assets/img/favicon.png" />
 
 <!-- CSS -->
-<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-<link href="assets/plugins/icons/css/icons.css" rel="stylesheet">
-<link href="assets/plugins/animate/animate.css" rel="stylesheet">
-<link href="assets/plugins/aos-master/aos.css" rel="stylesheet">
-<link href="assets/plugins/bootstrap/css/bootsnav.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/plugins/nice-select/css/nice-select.css">
-<link href="assets/plugins/date-dropper/datedropper.css" rel="stylesheet">
-<link href="assets/css/style.css" rel="stylesheet">
-<link href="assets/css/responsive.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/icons/css/icons.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/animate/animate.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/aos-master/aos.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootsnav.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/nice-select/css/nice-select.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/date-dropper/datedropper.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&amp;display=swap" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&amp;display=swap" rel="stylesheet"> 
@@ -68,17 +69,17 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="br-right"><a class="btn-signup red-btn" href="javascript:void(0)" data-toggle="modal" data-target="#signin"><i class="login-icon ti-user"></i>Login</a></li>
-        <li class="dropdown sign-up"> 
-		  <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href="signup.html"> 
-			<img src="assets/img/user-profile.png" class="img-responsive img-circle" alt="">Alden Smith 
-		  </a>
-          <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="browse-job.html">Browse Jobs</a></li>
-            <li><a href="create-company.html">Create Company</a></li>
-            <li><a href="create-resume.html">Create Resume</a></li>
-            <li><a href="signup.html">Sign Out</a></li>
-          </ul>
-        </li>
+        {{-- <li class="dropdown sign-up"> 
+            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href="signup.html"> 
+              <img src="assets/img/user-profile.png" class="img-responsive img-circle" alt="">Alden Smith 
+            </a>
+            <ul class="dropdown-menu animated fadeOutUp">
+              <li><a href="browse-job.html">Browse Jobs</a></li>
+              <li><a href="create-company.html">Create Company</a></li>
+              <li><a href="create-resume.html">Create Resume</a></li>
+              <li><a href="signup.html">Sign Out</a></li>
+            </ul>
+        </li> --}}
       </ul>
     </div>
   </div>

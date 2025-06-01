@@ -75,25 +75,28 @@
 <div><a href="#" class="scrollup">Scroll</a></div>
 
 <!-- Jquery js--> 
-<script src="assets/js/jquery.min.js"></script> 
-<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
-<script src="assets/plugins/bootstrap/js/bootsnav.js"></script> 
-<script src="assets/js/viewportchecker.js"></script> 
-<script src="assets/js/slick.js"></script> 
-<script src="assets/plugins/bootstrap/js/wysihtml5-0.3.0.js"></script> 
-<script src="assets/plugins/bootstrap/js/bootstrap-wysihtml5.js"></script> 
-<script src="assets/plugins/aos-master/aos.js"></script> 
-<script src="assets/plugins/nice-select/js/jquery.nice-select.min.js"></script> 
-<script src="assets/js/custom.js"></script> 
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script> 
+<script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script> 
+<script src="{{ asset('assets/plugins/bootstrap/js/bootsnav.js') }}"></script> 
+<script src="{{ asset('assets/js/viewportchecker.js') }}"></script> 
+<script src="{{ asset('assets/js/slick.js') }}"></script> 
+<script src="{{ asset('assets/plugins/bootstrap/js/wysihtml5-0.3.0.js') }}"></script> 
+<script src="{{ asset('assets/plugins/bootstrap/js/bootstrap-wysihtml5.js') }}"></script> 
+<script src="{{ asset('assets/plugins/aos-master/aos.js') }}"></script> 
+<script src="{{ asset('assets/plugins/nice-select/js/jquery.nice-select.min.js') }}"></script> 
+<script src="{{ asset('assets/js/custom.js') }}"></script> 
+
 <script>
-	$(window).load(function() {
-	  $(".page_preloader").fadeOut("slow");;
+	$(window).on('load', function() {
+	  $(".page_preloader").fadeOut("slow");
 	});	
 	AOS.init();
 </script> 
+
 <script>
 	$('#dob').dateDropper();
 </script>
+
 </body>
 
 <!-- Mirrored from utouchdesign.com/themes/envato/escort/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 14 May 2025 13:22:52 GMT -->

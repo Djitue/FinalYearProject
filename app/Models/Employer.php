@@ -22,6 +22,11 @@ class Employer extends Authenticatable
         'email',
         'password',
         'phone',
+        'address',
+        'gender',
+        'facebook',
+        'linkedin',
+        'profile_picture',
     ];
 
     /**

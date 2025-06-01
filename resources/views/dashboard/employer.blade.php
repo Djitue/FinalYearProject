@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 
@@ -6,8 +6,8 @@
 <div class="page-title">
   <div class="container">
     <div class="page-caption">
-      <h2>Employer Profile Settings</h2>
-      <p><a href="{{url('/')}}" title="Home">Home</a> <i class="ti-angle-double-right"></i> Profile Settings</p>
+      <h2>Employer Dashboard </h2>
+      <p><a href="{{url('/')}}" title="Home">Home</a> <i class="ti-angle-double-right"></i> Dashboard</p>
     </div>
   </div>
 </div>
@@ -19,13 +19,15 @@
     <div class="row"> 
       <div class="col-md-3">
 		<div id="leftcol_item">
-		  <div class="user_dashboard_pic"> <img alt="user photo" src="assets/img/user-profile.png"> <span class="user-photo-action">{{ Auth::guard('employer')->user()->name }}</span> </div>
+		  	<div class="user_dashboard_pic"> 
+		  		<img src="{{ asset('storage/' . $employer->profile_picture) }}" width="100" class="mb-2 mt-2 rounded">
+		   	</div>
 		</div>
 		<div class="dashboard_nav_item">
 		  <ul>
 		    <li class="active"><a href="{{route('employer.dashboard')}}"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
-			<li><a href="#"><i class="login-icon ti-user"></i> Edit Profile</a></li>
-			<li><a href="#"><i class="login-icon ti-key"></i> Change Password</a></li>
+			<li><a href="{{ route('employer.edit-profile') }}"><i class="login-icon ti-user"></i> Edit Profile</a></li>
+			<li><a href="{{ route('employer.change-password') }}"><i class="login-icon ti-key"></i> Change Password</a></li>
 			<li><a href="#"><i class="login-icon ti-power-off"></i> Logout</a></li>
 		  </ul>
 		</div>
