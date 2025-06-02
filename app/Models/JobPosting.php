@@ -40,6 +40,8 @@ class JobPosting extends Model
      */
     protected $casts = [
         'deadline' => 'datetime',
+        'skills' => 'array',
+        'requirements' => 'array',
     ];
 
     public function employer()

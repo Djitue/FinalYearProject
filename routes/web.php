@@ -44,11 +44,13 @@ Route::middleware(['auth:employer'])->group(function () {
     Route::post('/employer/logout', [AuthEmployerController::class, 'logout'])->name('employer.logout');
 
     Route::delete('/employer/delete-account', [ProfileController::class, 'destroy'])->name('employer.delete-account');
-    
+
     //Dashboard links
     Route::get('/employer/add-job', [JobController::class, 'create'])->name('employer.add-job');
     Route::get('/employer/view-candidates', [JobController::class, 'index'])->name('employer.view-candidates');
     Route::get('/employer/manage-job', [JobController::class, 'index'])->name('employer.manage-job');
+    Route::get('/employer/job-detail/{id}', [JobController::class, 'show'])->name('employer.job-detail');
+
 
     // View all jobs
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');

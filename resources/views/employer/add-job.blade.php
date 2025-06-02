@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
               <label>Category</label>
-              <select class="wide form-control">
+              <select name="category" class="wide form-control">
                 <option data-display="Information Of Technology">Information Of Technology</option>
                 <option value="1">Hardware</option>
                 <option value="2">Machanical</option>
@@ -65,7 +65,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12 m-clear">
               <label>Job Type</label>
-              <select class="wide form-control">
+              <select name="job_type" class="wide form-control">
                 <option data-display="Full Time">Full Time</option>
                 <option value="1">Part Time</option>
                 <option value="2">Freelancer</option>
@@ -121,7 +121,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
               <label>Town</label>
-              <input type="text" class="form-control" name="Town" placeholder="Address">
+              <input type="text" class="form-control" name="town" placeholder="Address">
             </div>
           </div>
         </div>

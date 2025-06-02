@@ -14,8 +14,10 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = JobPosting::where('employer_id', Auth::id())->get();
-        return view('employer.jobs.index', compact('jobs'));
+        $employer = Auth::guard('employer')->user();
+        $jobs = JobPosting::where('employer_id', $employer->id)->latest()->paginate(5);
+        return view('employer.job', compact('jobs'));
+
     }
 
     /**
@@ -80,6 +82,14 @@ class JobController extends Controller
         return redirect()->route('employer.dashboard')->with('success', 'Job posted successfully.');
     }
     
+    public function show($id)
+    {
+        $job = JobPosting::findOrFail($id); // Assuming your model is JobPosting
+
+        return view('employer.job-detail', compact('job'));
+    }
+
+
     // public function edit(JobPosting $job)
     // {
     //     return view('employer.jobs.edit', compact('job'));
