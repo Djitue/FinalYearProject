@@ -39,6 +39,11 @@ class Employer extends Authenticatable
         'remember_token',
     ];
 
+    public function jobs()
+        {
+            return $this->hasMany(JobPosting::class);
+        }
+
     /**
      * Get the attributes that should be cast.
      *

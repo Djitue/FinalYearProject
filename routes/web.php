@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthEmployerController;
+use App\Http\Controllers\Employer\JobController;
 use App\Http\Controllers\AuthJobSeekerController;
 use App\Http\Controllers\Employer\ProfileController;
 use App\Http\Controllers\Employer\DashboardController;
@@ -43,6 +44,30 @@ Route::middleware(['auth:employer'])->group(function () {
     Route::post('/employer/logout', [AuthEmployerController::class, 'logout'])->name('employer.logout');
 
     Route::delete('/employer/delete-account', [ProfileController::class, 'destroy'])->name('employer.delete-account');
+    
+    //Dashboard links
+    Route::get('/employer/add-job', [JobController::class, 'create'])->name('employer.add-job');
+    Route::get('/employer/view-candidates', [JobController::class, 'index'])->name('employer.view-candidates');
+    Route::get('/employer/manage-job', [JobController::class, 'index'])->name('employer.manage-job');
+
+    // View all jobs
+    Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
+
+    // Show form to create a job
+    Route::get('/jobs/create', [JobController::class, 'create'])->name('jobs.create');
+
+    // Store new job
+    Route::post('/jobs', [JobController::class, 'store'])->name('jobs.store');
+
+    // Show form to edit a job
+    Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
+
+    // Update job
+    Route::put('/jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
+
+    // Delete job
+    Route::delete('/jobs/{job}', [JobController::class, 'destroy'])->name('jobs.destroy');
+
 
 
 });

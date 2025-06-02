@@ -68,7 +68,13 @@
         <li class="dropdown"> <a href="contact.html">Contact</a> </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="br-right"><a class="btn-signup red-btn" href="javascript:void(0)" data-toggle="modal" data-target="#signin"><i class="login-icon ti-user"></i>Login</a></li>
+      <li class="br-right">
+        <a href="javascript:void(0)" data-toggle="modal" data-target="#signin">
+          {{-- <img src="{{ asset('storage/' . $employer->profile_picture) }}" width="100" class="mb-2 mt-2 rounded img-responsive img-circle" alt=""> --}}
+          {{ Auth::guard('employer')->user()->name }}
+        </a>
+      </li>
+
         {{-- <li class="dropdown sign-up"> 
             <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href="signup.html"> 
               <img src="assets/img/user-profile.png" class="img-responsive img-circle" alt="">Alden Smith 
