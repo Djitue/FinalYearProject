@@ -145,11 +145,11 @@ class JobController extends Controller
         return redirect()->route('employer.dashboard')->with('success', 'Job updated successfully.');
     }
 
-    // public function destroy(JobPosting $job)
-    // {
-    //     Storage::disk('public')->delete([$job->logo, $job->proof]);
-    //     $job->delete();
+    public function destroy($id)
+    {
+        $job = JobPosting::findOrFail($id);
+        $job->delete();
 
-    //     return redirect()->route('employer.dashboard')->with('success', 'Job deleted successfully.');
-    // }
+        return redirect()->back()->with('success', 'Job deleted successfully.');
+    }
 }

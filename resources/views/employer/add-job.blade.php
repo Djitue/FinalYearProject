@@ -85,7 +85,7 @@
             <div class="col-md-4 col-sm-6 col-xs-12 m-clear">
               <label>Proof of Business Existence</label>
               <div class="custom-file-upload">
-                <input type="file" id="file" name="proof" multiple />
+                <input type="file" id="file" name="proof" multiple required />
               </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">

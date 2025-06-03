@@ -103,7 +103,12 @@
                   <a href="{{ route('jobs.edit', $job->id) }}">
 					          <button type="button"  class="btn-job theme-btn job-apply">Edit Job</button>
                   </a>
-                  <button type="button" data-toggle="modal" data-target="#signin" class="btn btn-danger job-apply">DELETE JOB</button>
+                  <form action="{{ route('jobs.destroy', $job->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this job?');" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger job-apply">DELETE JOB</button>
+                  </form>
+
 				        </div>
               </div>
             </div>
