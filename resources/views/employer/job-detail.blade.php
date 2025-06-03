@@ -36,6 +36,7 @@
 				  <div class="col-sm-12 mrg-bot-10"> <i class="ti-shield padd-r-10"></i>{{ $job->experience ?? 'Experience not specified'  }} Year Exp.  </div>
 				  <div class="col-sm-12 mrg-bot-10"> <i class="ti-pencil-alt padd-r-10"></i>{{ $job->category ?? 'Uncategorized' }} </div>
 				  <div class="col-sm-12 mrg-bot-10"> <i class="ti-location-pin padd-r-10"></i>{{ $job->town ?? 'Town not specified' }} </div>
+				  <div class="col-sm-12 mrg-bot-10"> <i class="ti-calendar padd-r-10"></i>{{ $job->deadline ?? 'Deadline not specified' }} </div>
 				</div>
 			</div>
           </div>
@@ -99,9 +100,11 @@
             <div class="widget-boxed-body">
               <div class="side-list">
                 <div class="text-center">
-					<button type="button"  class="btn-job theme-btn job-apply">Edit Job</button>
-                    <button type="button" data-toggle="modal" data-target="#signin" class="btn btn-danger job-apply">DELETE JOB</button>
-				  </div>
+                  <a href="{{ route('jobs.edit', $job->id) }}">
+					          <button type="button"  class="btn-job theme-btn job-apply">Edit Job</button>
+                  </a>
+                  <button type="button" data-toggle="modal" data-target="#signin" class="btn btn-danger job-apply">DELETE JOB</button>
+				        </div>
               </div>
             </div>
           </div>

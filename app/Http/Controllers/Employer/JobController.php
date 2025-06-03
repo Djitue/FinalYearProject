@@ -90,54 +90,60 @@ class JobController extends Controller
     }
 
 
-    // public function edit(JobPosting $job)
-    // {
-    //     return view('employer.jobs.edit', compact('job'));
-    // }
+    public function edit($id)
+    {
+        $job = JobPosting::findOrFail($id);
+        return view('employer.edit-job', compact('job'));
+    }
 
     
-    // public function update(Request $request, JobPosting $job)
-    // {
-    //     $data = $request->validate([
-    //         'job_title' => 'required|string',
-    //         'company_name' => 'nullable|string',
-    //         'category' => 'nullable|string',
-    //         'description' => 'required|string',
-    //         'salary' => 'nullable|string',
-    //         'vacancy' => 'nullable|integer',
-    //         'experience' => 'nullable|string',
-    //         'logo' => 'nullable|image',
-    //         'job_type' => 'nullable|string',
-    //         'requirement' => 'nullable|string',
-    //         'skill' => 'nullable|string',
-    //         'proof' => 'nullable|file',
-    //         'deadline' => 'nullable|date',
-    //         'email' => 'nullable|email',
-    //         'phone' => 'nullable|string',
-    //         'website' => 'nullable|string',
-    //         'address' => 'nullable|string',
-    //         'town' => 'nullable|string',
-    //         'facebook' => 'nullable|string',
-    //         'X' => 'nullable|string',
-    //         'linkedin' => 'nullable|string',
-    //         'instagram' => 'nullable|string',
-    //     ]);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'job_title' => 'required|string',
+            'company_name' => 'nullable|string',
+            'category' => 'nullable|string',
+            'description' => 'required|string',
+            'salary' => 'nullable|string',
+            'vacancy' => 'nullable|integer',
+            'experience' => 'nullable|string',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'job_type' => 'nullable|string',
+            'requirement' => 'nullable|string',
+            'skill' => 'nullable|string',
+            'proof' => 'nullable|file|mimes:pdf,jpeg,png,jpg|max:2048',
+            'deadline' => 'nullable|date',
+            'email' => 'nullable|email',
+            'phone' => 'nullable|string',
+            'website' => 'nullable|string',
+            'address' => 'nullable|string',
+            'town' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'X' => 'nullable|string',
+            'linkedin' => 'nullable|string',
+            'instagram' => 'nullable|string',
+        ]);
 
-    //     // File updates
-    //     if ($request->hasFile('logo')) {
-    //         Storage::disk('public')->delete($job->logo);
-    //         $data['logo'] = $request->file('logo')->store('logos', 'public');
-    //     }
+        $job = JobPosting::findOrFail($id);
 
-    //     if ($request->hasFile('proof')) {
-    //         Storage::disk('public')->delete($job->proof);
-    //         $data['proof'] = $request->file('proof')->store('proofs', 'public');
-    //     }
+        $data = $request->all();
 
-    //     $job->update($data);
+         // Handle logo upload if present
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('logos', 'public');
+            $data['logo'] = $logoPath;
+        }
 
-    //     return redirect()->route('employer.jobs.index')->with('success', 'Job updated successfully.');
-    // }
+        // Handle proof upload if present
+        if ($request->hasFile('proof')) {
+            $proofPath = $request->file('proof')->store('proofs', 'public');
+            $data['proof'] = $proofPath;
+        }
+
+        $job->update($data);
+
+        return redirect()->route('employer.dashboard')->with('success', 'Job updated successfully.');
+    }
 
     // public function destroy(JobPosting $job)
     // {
