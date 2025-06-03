@@ -44,11 +44,11 @@ class AuthJobSeekerController extends Controller
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
 
-            return view('welcome');
+            return view('dashboard.jobseeker');
         }
 
        throw ValidationException::withMessages([
-        'credentioals' => 'Sorry incorrect credentials'
+        'credentials' => 'Sorry incorrect credentials'
        ]);
     }
 }

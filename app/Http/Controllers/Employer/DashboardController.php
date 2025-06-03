@@ -13,4 +13,11 @@ class DashboardController extends Controller
         $employer = Auth::guard('employer')->user();
         return view('dashboard.employer', compact('employer'));
     }
+
+    public function indexx()
+    {
+        $user = Auth::guard('web')->user();  
+        return view('dashboard.jobseeker', compact('user'));
+
+    }
 }

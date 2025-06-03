@@ -51,26 +51,17 @@ Route::middleware(['auth:employer'])->group(function () {
     Route::get('/employer/manage-job', [JobController::class, 'index'])->name('employer.manage-job');
     Route::get('/employer/job-detail/{id}', [JobController::class, 'show'])->name('employer.job-detail');
 
-
-    // View all jobs
+    // jobs
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
-
-    // Show form to create a job
     Route::get('/jobs/create', [JobController::class, 'create'])->name('jobs.create');
-
-    // Store new job
     Route::post('/jobs', [JobController::class, 'store'])->name('jobs.store');
-
-    // Show form to edit a job
     Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
-
-    // Update job
     Route::put('/jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
-
-    // Delete job
     Route::delete('/jobs/{job}', [JobController::class, 'destroy'])->name('jobs.destroy');
-
-
-
 });
 
+// Jobseeker Dashboard
+Route::middleware(['auth:web'])->group(function () {
+    Route::get('/jobseeker/dashboard', [DashboardController::class, 'indexx'])->name('jobseeker.dashboard');
+
+});

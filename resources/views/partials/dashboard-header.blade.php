@@ -68,12 +68,23 @@
         <li class="dropdown"> <a href="contact.html">Contact</a> </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-      <li class="br-right">
-        <a href="javascript:void(0)" data-toggle="modal" data-target="#signin">
-          {{-- <img src="{{ asset('storage/' . $employer->profile_picture) }}" width="100" class="mb-2 mt-2 rounded img-responsive img-circle" alt=""> --}}
-          {{ Auth::guard('employer')->user()->name }}
-        </a>
-      </li>
+       @php
+          $user = null;
+          $profilePicture = asset('assets/img/user-profile.png'); // default image
+          $userType = null;
+
+          if (Auth::guard('employer')->check()) {
+              $user = Auth::guard('employer')->user();
+              $profilePicture = $user->profile_picture ? 'storage/' . $user->profile_picture : $profilePicture;
+          } elseif (Auth::guard('admin')->check()) {
+              $user = Auth::guard('admin')->user();
+              $profilePicture = $user->profile_picture ? 'storage/' . $user->profile_picture : $profilePicture;
+          } elseif (Auth::guard('web')->check()) { 
+              $user = Auth::guard('web')->user();
+              $profilePicture = $user->profile_picture ? 'storage/' . $user->profile_picture : $profilePicture;
+              $userType = 'jobseeker'; 
+          }
+        @endphp
 
         {{-- <li class="dropdown sign-up"> 
             <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href="signup.html"> 
