@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Jobseeker;
+namespace App\Http\Controllers\JobSeeker;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    // public function index()
-    // {
-    //     $user = Auth::user();  
-    //     return view('dashboard.jobseeker', compact('user'));
+     public function index()
+    {
+        $user = Auth::guard('web')->user();  
+        return view('dashboard.jobseeker', compact('user'));
 
-    // }
+    }
 }

@@ -51,4 +51,14 @@ class AuthJobSeekerController extends Controller
         'credentials' => 'Sorry incorrect credentials'
        ]);
     }
+
+    public function logout(Request $request)
+    {
+       Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/'); // or redirect to login page  
+    }
 }

@@ -18,15 +18,32 @@
     <div class="row"> 
       <div class="col-md-3">
 		<div id="leftcol_item">
-		  <div class="user_dashboard_pic"> <img alt="user photo" src="assets/img/user-profile.png"> 
-          <span class="user-photo-action">{{ Auth::guard('web')->user()->name }}</span> </div>
+		<div class="user_dashboard_pic"><img src="{{ asset('storage/' . Auth::guard('web')->user()->profile_picture) }}" width="100" alt=""> 
+		<span class="user-photo-action">{{ Auth::guard('web')->user()->name }}</span> </div>
 		</div>
 		<div class="dashboard_nav_item">
 		  <ul>
-		    <li class="active"><a href="dashboard.html"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
-			<li><a href="profile-settings.html"><i class="login-icon ti-user"></i> Edit Profile</a></li>
-			<li><a href="change-password.html"><i class="login-icon ti-key"></i> Change Password</a></li>
-			<li><a href="#"><i class="login-icon ti-power-off"></i> Logout</a></li>
+		    <li class="active"><a href="{{route('jobseeker.dashboard')}}"><i class="login-icon ti-dashboard"></i> Dashboard</a></li>
+			<li><a href="{{ route('jobseeker.edit-profile') }}"><i class="login-icon ti-user"></i> Edit Profile</a></li>
+			<li><a href="{{ route('jobseeker.update-password') }}"><i class="login-icon ti-key"></i> Change Password</a></li>
+			<li>
+				<form action="{{ route('jobseeker.logout') }}" method="POST" style="display: inline;">
+					@csrf
+						<button type="submit" style="background: none; border: none; padding: 10px 0; height: 50px; width: 100%; text-align: lest; color: inherit;">
+							<i class="login-icon ti-power-off"></i> Logout
+						</button>
+				</form>
+			</li>
+			<li>
+				<form action="{{ route('jobseeker.delete-account') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action is irreversible.');">
+					@csrf
+					@method('DELETE')
+					<button type="submit"
+							style="background-color: #dc3545; border: none; padding: 10px 20px; height: 45px; width: 100%; text-align: right; font-size: 16px; color: white; border-radius: 4px; transition: background-color 0.3s;">
+					<i class="login-icon ti-trash" style="float: left;"></i> Delete Account
+					</button>
+				</form>
+			</li>
 		  </ul>
 		</div>
 	  </div>

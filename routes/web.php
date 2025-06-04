@@ -5,7 +5,10 @@ use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthEmployerController;
 use App\Http\Controllers\Employer\JobController;
 use App\Http\Controllers\AuthJobSeekerController;
-use App\Http\Controllers\Employer\ProfileController;
+use App\Http\Controllers\Employer\ProfileController as EmployerProfileController;
+use App\Http\Controllers\JobSeeker\ProfileController as JobSeekerProfileController;
+use App\Http\Controllers\Employer\DashboardController as EmployerDashboardController;
+use App\Http\Controllers\JobSeeker\DashboardController as JobSeekerDashboardController;
 use App\Http\Controllers\Employer\DashboardController;
 
 Route::get('/', function () {
@@ -33,17 +36,17 @@ Route::post('/admin/login',[AuthAdminController::class, 'login'])->name('loginad
 
 // Employer Dashboard
 Route::middleware(['auth:employer'])->group(function () {
-    Route::get('/employer/dashboard', [DashboardController::class, 'index'])->name('employer.dashboard');
+    Route::get('/employer/dashboard', [EmployerDashboardController::class, 'index'])->name('employer.dashboard');
         // Edit Profile
-    Route::get('/employer/edit-profile', [ProfileController::class, 'edit'])->name('employer.edit-profile');
-    Route::post('/employer/edit-profile', [ProfileController::class, 'update'])->name('employer.update-profile');
+    Route::get('/employer/edit-profile', [EmployerProfileController::class, 'edit'])->name('employer.edit-profile');
+    Route::post('/employer/edit-profile', [EmployerProfileController::class, 'update'])->name('employer.update-profile');
     // Change Password
-    Route::get('/employer/change-password', [ProfileController::class, 'changePasswordForm'])->name('employer.change-password');
-    Route::post('/employer/change-password', [ProfileController::class, 'updatePassword'])->name('employer.update-password');
+    Route::get('/employer/change-password', [EmployerProfileController::class, 'changePasswordForm'])->name('employer.change-password');
+    Route::post('/employer/change-password', [EmployerProfileController::class, 'updatePassword'])->name('employer.update-password');
     // Logout
     Route::post('/employer/logout', [AuthEmployerController::class, 'logout'])->name('employer.logout');
 
-    Route::delete('/employer/delete-account', [ProfileController::class, 'destroy'])->name('employer.delete-account');
+    Route::delete('/employer/delete-account', [EmployerProfileController::class, 'destroy'])->name('employer.delete-account');
 
     //Dashboard links
     Route::get('/employer/add-job', [JobController::class, 'create'])->name('employer.add-job');
@@ -61,7 +64,14 @@ Route::middleware(['auth:employer'])->group(function () {
 });
 
 // Jobseeker Dashboard
-Route::middleware(['auth:web'])->group(function () {
-    Route::get('/jobseeker/dashboard', [DashboardController::class, 'indexx'])->name('jobseeker.dashboard');
+Route::prefix('jobseeker')->middleware(['auth:web'])->group(function () {
+    Route::get('/dashboard', [JobSeekerDashboardController::class, 'index'])->name('jobseeker.dashboard');
+    Route::get('edit-profile', [JobSeekerProfileController::class, 'edit'])->name('jobseeker.edit-profile');
+    Route::post('edit-profile', [JobSeekerProfileController::class, 'update'])->name('jobseeker.update-profile');
+    Route::get('/change-password', [JobSeekerProfileController::class, 'changePasswordForm'])->name('jobseeker.change-password');
+    Route::post('/change-password', [JobSeekerProfileController::class, 'updatePassword'])->name('jobseeker.update-password');
+    Route::post('/logout', [AuthJobSeekerController::class, 'logout'])->name('jobseeker.logout');
+    Route::delete('/delete-account', [JobSeekerProfileController::class, 'destroy'])->name('jobseeker.delete-account');
+
 
 });

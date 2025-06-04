@@ -67,37 +67,6 @@
         </li>
         <li class="dropdown"> <a href="contact.html">Contact</a> </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-       @php
-          $user = null;
-          $profilePicture = asset('assets/img/user-profile.png'); // default image
-          $userType = null;
-
-          if (Auth::guard('employer')->check()) {
-              $user = Auth::guard('employer')->user();
-              $profilePicture = $user->profile_picture ? 'storage/' . $user->profile_picture : $profilePicture;
-          } elseif (Auth::guard('admin')->check()) {
-              $user = Auth::guard('admin')->user();
-              $profilePicture = $user->profile_picture ? 'storage/' . $user->profile_picture : $profilePicture;
-          } elseif (Auth::guard('web')->check()) { 
-              $user = Auth::guard('web')->user();
-              $profilePicture = $user->profile_picture ? 'storage/' . $user->profile_picture : $profilePicture;
-              $userType = 'jobseeker'; 
-          }
-        @endphp
-
-        {{-- <li class="dropdown sign-up"> 
-            <a class="dropdown-toggle btn-signup red-btn" data-toggle="dropdown" href="signup.html"> 
-              <img src="assets/img/user-profile.png" class="img-responsive img-circle" alt="">Alden Smith 
-            </a>
-            <ul class="dropdown-menu animated fadeOutUp">
-              <li><a href="browse-job.html">Browse Jobs</a></li>
-              <li><a href="create-company.html">Create Company</a></li>
-              <li><a href="create-resume.html">Create Resume</a></li>
-              <li><a href="signup.html">Sign Out</a></li>
-            </ul>
-        </li> --}}
-      </ul>
     </div>
   </div>
 </nav>
