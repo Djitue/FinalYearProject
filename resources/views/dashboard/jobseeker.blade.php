@@ -49,36 +49,77 @@
 	  </div>
 	  <div class="col-md-9">
         <div id="dashboard_listing_blcok">
-		  <div class="col-md-4 col-sm-4">
-			<div class="statusbox">
-			  <h3>Balance Credit</h3>
-			  <div class="statusbox-content">
-				<p class="ic_status_item ic_col_one"><i class="fa fa-balance-scale"></i></p>
-				<h2>$215,00</h2>
-				<span>Updated 02 Jan 2021</span> 
-			  </div>
+		  
+		  <!-- View Job -->
+			<div class="col-md-4 col-sm-4">
+				<a href="{{route('jobseeker.jobs')}}" style="text-decoration: none;">
+					<div class="statusbox">
+						<h3>View Job</h3>
+						<div class="statusbox-content">
+							<p class="ic_status_item ic_col_one">
+								<i class="fa fa-folder-open"></i>
+							</p>
+						</div>
+					</div>
+				</a>
 			</div>
-		  </div>
-		  <div class="col-md-4 col-sm-4">
-			<div class="statusbox">
-			  <h3>View Progress</h3>
-			  <div class="statusbox-content">
-				<p class="ic_status_item ic_col_two"><i class="fa fa-line-chart"></i></p>
-				<h2>$280,00</h2>
-				<span>Updated 02 Jan 2021</span> 
-			  </div>
+			
+			<!-- Manage Application -->
+			<div class="col-md-4 col-sm-4">
+				<a href="{{route('employer.manage-job')}}" style="text-decoration: none;">
+					<div class="statusbox">
+						<h3>Manage Application</h3>
+						<div class="statusbox-content">
+							<p class="ic_status_item ic_col_three">
+								<i class="fa fa-briefcase"></i>
+							</p>
+						</div>
+					</div>
+				</a>
+			</div> 
+
+			<!-- Create CV -->
+			<div class="col-md-4 col-sm-4">
+				<a href="#" style="text-decoration: none;">
+					<div class="statusbox">
+						<h3>Create CV</h3>
+						<div class="statusbox-content">
+							<p class="ic_status_item ic_col_two">
+								<i class="fa fa-file"></i>
+							</p>
+						</div>
+					</div>
+				</a>
 			</div>
-		  </div>
-		  <div class="col-md-4 col-sm-4">
-			<div class="statusbox">
-			  <h3>View Payments</h3>
-			  <div class="statusbox-content">
-				<p class="ic_status_item ic_col_three"><i class="fa fa-cc-paypal"></i></p>
-				<h2>$350,00</h2>
-				<span>Updated 02 Jan 2021</span> 
-			  </div>
-			</div>
-		  </div>
+
+			<!-- Saved Job -->
+			<div class="col-md-4 col-sm-4">
+				<a href="{{route('employer.manage-job')}}" style="text-decoration: none;">
+					<div class="statusbox">
+						<h3>Saved Job</h3>
+						<div class="statusbox-content">
+							<p class="ic_status_item ic_col_three">
+								<i class="fa fa-bookmark"></i>
+							</p>
+						</div>
+					</div>
+				</a>
+			</div> 
+
+			<!-- Transaction Details -->
+			<div class="col-md-4 col-sm-4">
+				<a href="{{route('employer.manage-job')}}" style="text-decoration: none;">
+					<div class="statusbox">
+						<h3>Transaction Details</h3>
+						<div class="statusbox-content">
+							<p class="ic_status_item ic_col_three">
+								<i class="fa fa-credit-card"></i>
+							</p>
+						</div>
+					</div>
+				</a>
+			</div> 
+
 		</div>
       </div>	  
     </div>

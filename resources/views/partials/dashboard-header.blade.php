@@ -38,7 +38,7 @@
 	</div>
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
-        <li class="dropdown"> <a href="index-2.html">Home</a> </li>
+        <li class="dropdown"> <a href="{{url('/')}}">Home</a> </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employer</a>
           <ul class="dropdown-menu animated fadeOutUp">
             <li><a href="employer.html">Employer</a></li>

@@ -5,11 +5,12 @@ use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthEmployerController;
 use App\Http\Controllers\Employer\JobController;
 use App\Http\Controllers\AuthJobSeekerController;
+use App\Http\Controllers\Employer\DashboardController;
+use App\Http\Controllers\JobSeeker\JobSeekerJobController;
 use App\Http\Controllers\Employer\ProfileController as EmployerProfileController;
 use App\Http\Controllers\JobSeeker\ProfileController as JobSeekerProfileController;
 use App\Http\Controllers\Employer\DashboardController as EmployerDashboardController;
 use App\Http\Controllers\JobSeeker\DashboardController as JobSeekerDashboardController;
-use App\Http\Controllers\Employer\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -72,6 +73,11 @@ Route::prefix('jobseeker')->middleware(['auth:web'])->group(function () {
     Route::post('/change-password', [JobSeekerProfileController::class, 'updatePassword'])->name('jobseeker.update-password');
     Route::post('/logout', [AuthJobSeekerController::class, 'logout'])->name('jobseeker.logout');
     Route::delete('/delete-account', [JobSeekerProfileController::class, 'destroy'])->name('jobseeker.delete-account');
+    Route::get('/jobs', [JobSeekerJobController::class, 'allJobs'])->name('jobseeker.jobs');
+    Route::get('/jobs/{id}', [JobSeekerJobController::class, 'show'])->name('jobs.show');
+
+
+
 
 
 });
