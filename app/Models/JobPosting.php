@@ -42,10 +42,16 @@ class JobPosting extends Model
         'deadline' => 'datetime',
         'skills' => 'array',
         'requirements' => 'array',
+         'skills' => 'array',
     ];
 
     public function employer()
     {
         return $this->belongsTo(Employer::class);
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
     }
 }

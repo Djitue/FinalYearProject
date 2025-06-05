@@ -7,7 +7,13 @@
   <div class="container">
     <div class="page-caption">
       <h2>Job Detail</h2>
-      <p><a href="{{url('/')}}" title="Home">Home</a> <i class="ti-angle-double-right"></i><a href="{{route('jobseeker.dashboard')}}" title="Home">Dashboard</a> <i class="ti-angle-double-right"></i> <a href="{{route('jobseeker.jobs')}}" title="Home">View Job<i class="ti-angle-double-right"></i> Job Detail</p>
+        <p> 
+            <a href="{{url('/')}}" title="Home">Home</a>
+                <i class="ti-angle-double-right"></i>
+            <a href="{{route('jobseeker.dashboard')}}" title="Dashboard">Dashboard</a>
+                <i class="ti-angle-double-right"></i>
+            <a title="View Job">Job Details</a>
+          </p>
     </div>
   </div>
 </div>
@@ -25,8 +31,10 @@
 				<div class="col-md-4 text-center user_profile_img"><h4>{{ $job->company_name ?? 'No Company name' }} </h4>  <img src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/company_logo_1.png') }}" class="width-100"  alt=""/>
 				  <h4 class="meg-0">{{ $job->job_title }} </h4>
 				  <span>{{ $job->address ?? 'No address' }} </span>
-                   <div class="text-center">
-					<button type="button" data-toggle="modal" data-target="#signin" class="btn-job theme-btn job-apply">Apply Now</button>
+            <div class="text-center">
+					    <a href="{{route('job.apply.submit', $job->id)}}" class="btn-job theme-btn job-apply">
+                Apply Now
+              </a>
 				  </div> 
 				</div>
                 

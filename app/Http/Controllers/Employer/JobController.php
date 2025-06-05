@@ -14,11 +14,48 @@ class JobController extends Controller
      */
     public function index()
     {
-        $employer = Auth::guard('employer')->user();
-        $jobs = JobPosting::where('employer_id', $employer->id)->latest()->paginate(5);
-        return view('employer.job', compact('jobs'));
 
+        $query = Job::query();
+
+        // Filtering
+        if ($request->filled('keyword')) {
+            $query->where('title', 'like', '%' . $request->keyword . '%');
+        }
+
+        if ($request->filled('location')) {
+            $query->where('location', 'like', '%' . $request->location . '%');
+        }
+
+        if ($request->filled('job_type')) {
+            $query->where('job_type', $request->job_type);
+        }
+
+        if ($request->filled('salary')) {
+            switch ($request->salary) {
+                case 'under_50000': $query->where('salary', '<', 50000); break;
+                case '50000_100000': $query->whereBetween('salary', [50000, 100000]); break;
+                case '100000_200000': $query->whereBetween('salary', [100000, 200000]); break;
+                case '200000_300000': $query->whereBetween('salary', [200000, 300000]); break;
+                case 'above_500000': $query->where('salary', '>', 500000); break;
+            }
+        }
+
+        // Sorting
+        if ($request->filled('sort_by')) {
+            switch ($request->sort_by) {
+                case 'views': $query->orderBy('views', 'desc'); break;
+                case 'search': $query->orderBy('search_count', 'desc'); break;
+                default: $query->orderBy('created_at', 'desc'); break;
+            }
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $jobs = $query->paginate(10);
+
+        return view('jobs', compact('jobs'));
     }
+
 
     /**
      * Show the form for creating a new job.

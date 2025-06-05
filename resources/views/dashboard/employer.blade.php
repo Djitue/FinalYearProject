@@ -20,7 +20,11 @@
 			<div class="col-md-3">
 				<div id="leftcol_item">
 					<div class="user_dashboard_pic"> 
-						<img src="{{ asset('storage/' . $employer->profile_picture) }}" width="100" class="mb-2 mt-2 rounded">
+						@if ($employer->profile_picture)
+						<img alt="user photo" src="{{ Storage::url($employer->profile_picture) }}"> 
+						@else
+						<img alt="user photo" src="{{ asset('assets/img/user-profile.png') }}">
+						@endif
 						<span class="user-photo-action">{{ Auth::guard('employer')->user()->name }}</span>
 					</div>
 				</div>
@@ -94,6 +98,20 @@
 						</div>
 					</a>
 				</div>  
+
+				<!-- Transaction Details -->
+				<div class="col-md-4 col-sm-4">
+					<a href="{{route('employer.manage-job')}}" style="text-decoration: none;">
+						<div class="statusbox">
+							<h3>Transaction Details</h3>
+							<div class="statusbox-content">
+								<p class="ic_status_item ic_col_three">
+									<i class="fa fa-credit-card"></i>
+								</p>
+							</div>
+						</div>
+					</a>
+				</div> 
 			</div>
 		</div>
 	</div>

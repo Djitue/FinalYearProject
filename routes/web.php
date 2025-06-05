@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthAdminController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthEmployerController;
 use App\Http\Controllers\Employer\JobController;
 use App\Http\Controllers\AuthJobSeekerController;
@@ -75,7 +76,8 @@ Route::prefix('jobseeker')->middleware(['auth:web'])->group(function () {
     Route::delete('/delete-account', [JobSeekerProfileController::class, 'destroy'])->name('jobseeker.delete-account');
     Route::get('/jobs', [JobSeekerJobController::class, 'allJobs'])->name('jobseeker.jobs');
     Route::get('/jobs/{id}', [JobSeekerJobController::class, 'show'])->name('jobs.show');
-
+    Route::get('/jobs/{job}/apply', [ApplicationController::class, 'applyForm'])->name('job.apply.form');
+    Route::post('/jobs/{job}/apply', [ApplicationController::class, 'apply'])->name('job.apply.submit');
 
 
 
