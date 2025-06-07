@@ -160,13 +160,16 @@ class JobController extends Controller
 
     public function viewApplicants($jobId)
     {
+       
         $job = JobPosting::where('id', $jobId)
             ->where('employer_id', auth()->id()) // Ensure security
-            ->with('applications.user')    // Load applicants with job seeker info
+            ->with(['applications' => function ($query) {
+                $query->where('deleted_by_user', false); //  Filter out deleted applications
+            }, 'applications.user']) // Load applicants and their user info
             ->firstOrFail();
 
         return view('employer.applicants', compact('job'));
-    }
+        }
 
     public function updateStatus(Request $request, $id)
     {

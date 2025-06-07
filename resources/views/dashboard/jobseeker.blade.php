@@ -64,11 +64,11 @@
 				</a>
 			</div>
 			
-			<!-- Manage Application -->
+			<!-- Track Application -->
 			<div class="col-md-4 col-sm-4">
-				<a href="{{route('employer.manage-job')}}" style="text-decoration: none;">
+				<a href="{{route('jobseeker.applications')}}" style="text-decoration: none;">
 					<div class="statusbox">
-						<h3>Manage Application</h3>
+						<h3>Track Application</h3>
 						<div class="statusbox-content">
 							<p class="ic_status_item ic_col_three">
 								<i class="fa fa-briefcase"></i>
@@ -94,7 +94,7 @@
 
 			<!-- Saved Job -->
 			<div class="col-md-4 col-sm-4">
-				<a href="{{route('employer.manage-job')}}" style="text-decoration: none;">
+				<a href="#" style="text-decoration: none;">
 					<div class="statusbox">
 						<h3>Saved Job</h3>
 						<div class="statusbox-content">

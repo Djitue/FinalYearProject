@@ -20,15 +20,13 @@ class ApplicationController extends Controller
     public function apply(Request $request, $jobId)
     {
         $userId = auth()->id();
-
-        // Check if user has already applied
-        $applicationCount = Application::where([
-            'user_id' => $userId,
-            'job_posting_id' => $jobId
-        ])->count();
+        // Check if user has already applied or deleted the application
+        $existingApplication = Application::where('user_id', $userId)
+            ->where('job_posting_id', $jobId)
+            ->first();
 
         if ($applicationCount > 0) {
-             return back()->withErrors(['email' => 'You have already applied for this job.']);
+             return back()->withErrors(['email' => 'You have already applied for this job or withdrawn your application.']);
         }
 
         // Validate form input
@@ -55,4 +53,31 @@ class ApplicationController extends Controller
 
         return redirect()->back()->with('success', 'Application submitted successfully!');
     }
+
+    public function destroyByUser($id)
+    {
+        $application = Application::where('id', $id)
+                        ->where('user_id', auth()->id())
+                        ->firstOrFail();
+
+        $application->deleted_by_user = true;
+        $application->save();
+
+        return redirect()->back()->with('success', 'Application deleted successfully.');
+    }
+
+    public function trackApplications()
+    {
+        $userId = auth()->id();
+
+        // Get applications that are not deleted by the user
+        $applications = Application::where('user_id', $userId)
+            ->where('deleted_by_user', false)
+            ->with('job') // Load job details for display
+            ->latest()
+            ->get();
+
+        return view('jobseeker.track', compact('applications'));
+    }
+
 }

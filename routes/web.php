@@ -85,8 +85,8 @@ Route::prefix('jobseeker')->middleware(['auth:web'])->group(function () {
     Route::get('/jobs/{id}', [JobSeekerJobController::class, 'show'])->name('jobs.show');
     Route::get('/jobs/{job}/apply', [ApplicationController::class, 'applyForm'])->name('job.apply.form');
     Route::post('/jobs/{job}/apply', [ApplicationController::class, 'apply'])->name('job.apply.submit');
-
-
-
+    Route::delete('/jobseeker/application/{id}', [ApplicationController::class, 'destroyByUser'])->name('jobseeker.application.delete');
+    // Show tracking page
+    Route::get('/jobseeker/applications', [ApplicationController::class, 'trackApplications'])->name('jobseeker.applications');
 
 });
