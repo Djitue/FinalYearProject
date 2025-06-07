@@ -63,6 +63,13 @@ Route::middleware(['auth:employer'])->group(function () {
     Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
     Route::put('/jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
     Route::delete('/jobs/{job}', [JobController::class, 'destroy'])->name('jobs.destroy');
+
+    Route::get('/employer/jobs/candidates', [JobController::class, 'viewPostedJobs'])->name('employer.jobs.candidates');
+    Route::get('/employer/jobs/{job}/applicants', [JobController::class, 'viewApplicants'])->name('employer.jobs.applicants');
+    Route::put('/applicants/{id}/status', [JobController::class, 'updateStatus'])->name('applicants.update.status');
+    Route::delete('/applicants/{id}', [JobController::class, 'destroyapplication'])->name('applicants.destroy');
+
+
 });
 
 // Jobseeker Dashboard

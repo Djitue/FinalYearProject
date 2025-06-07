@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class JobSeekerJobController extends Controller
 {
     /**
-     * Display a listing oto the job seeker.
+     * Display a listing pf job to the job seeker.
      */
 
     public function allJobs()

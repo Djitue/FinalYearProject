@@ -73,7 +73,7 @@
 				
 				<!-- View Candidates -->
 				<div class="col-md-4 col-sm-4">
-					<a href="#" style="text-decoration: none;">
+					<a href="{{route('employer.jobs.candidates')}}" style="text-decoration: none;">
 						<div class="statusbox">
 							<h3>View Candidates</h3>
 							<div class="statusbox-content">

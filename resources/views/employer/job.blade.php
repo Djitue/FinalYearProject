@@ -52,7 +52,7 @@
         </tbody>
       </table>
       <div class="utf_flexbox_area padd-10">
-        {{ $jobs->links() }}
+        {{-- {{ $jobs->links() }} --}}
       </div>
     </div>
   </div>

@@ -3,59 +3,19 @@
 namespace App\Http\Controllers\Employer;
 
 use App\Models\JobPosting;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
-    /**
-     * Display a listing of the employer's jobs.
-     */
+
     public function index()
     {
-
-        $query = Job::query();
-
-        // Filtering
-        if ($request->filled('keyword')) {
-            $query->where('title', 'like', '%' . $request->keyword . '%');
-        }
-
-        if ($request->filled('location')) {
-            $query->where('location', 'like', '%' . $request->location . '%');
-        }
-
-        if ($request->filled('job_type')) {
-            $query->where('job_type', $request->job_type);
-        }
-
-        if ($request->filled('salary')) {
-            switch ($request->salary) {
-                case 'under_50000': $query->where('salary', '<', 50000); break;
-                case '50000_100000': $query->whereBetween('salary', [50000, 100000]); break;
-                case '100000_200000': $query->whereBetween('salary', [100000, 200000]); break;
-                case '200000_300000': $query->whereBetween('salary', [200000, 300000]); break;
-                case 'above_500000': $query->where('salary', '>', 500000); break;
-            }
-        }
-
-        // Sorting
-        if ($request->filled('sort_by')) {
-            switch ($request->sort_by) {
-                case 'views': $query->orderBy('views', 'desc'); break;
-                case 'search': $query->orderBy('search_count', 'desc'); break;
-                default: $query->orderBy('created_at', 'desc'); break;
-            }
-        } else {
-            $query->orderBy('created_at', 'desc');
-        }
-
-        $jobs = $query->paginate(10);
-
-        return view('jobs', compact('jobs'));
+        $jobs = JobPosting::where('employer_id', auth()->id())->paginate(10); //  Use paginate
+        return view('employer.job', compact('jobs'));
     }
-
 
     /**
      * Show the form for creating a new job.
@@ -189,4 +149,50 @@ class JobController extends Controller
 
         return redirect()->back()->with('success', 'Job deleted successfully.');
     }
+
+    public function viewPostedJobs()
+    {
+        // Get jobs posted by the logged-in employer
+        $jobs = JobPosting::where('employer_id', auth()->id())->get();
+
+        return view('employer.job-application', compact('jobs'));
+    }
+
+    public function viewApplicants($jobId)
+    {
+        $job = JobPosting::where('id', $jobId)
+            ->where('employer_id', auth()->id()) // Ensure security
+            ->with('applications.user')    // Load applicants with job seeker info
+            ->firstOrFail();
+
+        return view('employer.applicants', compact('job'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:Pending,Accepted,Rejected',
+        ]);
+
+        $applicant = Application::findOrFail($id);
+        $applicant->status = $request->status;
+        $applicant->save();
+
+        return redirect()->back()->with('success', 'Applicant status updated successfully.');
+    }
+
+    public function destroyapplication($id)
+    {
+        $application = Application::findOrFail($id);
+
+        // If you stored the CV file and want to delete it too
+        if ($application->cv && \Storage::disk('public')->exists($application->cv)) {
+            \Storage::disk('public')->delete($application->cv);
+        }
+
+        $application->delete();
+
+        return redirect()->back()->with('success', 'Application deleted successfully.');
+    }
+
 }
