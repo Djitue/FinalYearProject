@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SavedJobController;
 use App\Http\Controllers\AuthAdminController;
+use App\Http\Controllers\JobSearchController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthEmployerController;
 use App\Http\Controllers\Employer\JobController;
@@ -13,10 +16,10 @@ use App\Http\Controllers\JobSeeker\ProfileController as JobSeekerProfileControll
 use App\Http\Controllers\Employer\DashboardController as EmployerDashboardController;
 use App\Http\Controllers\JobSeeker\DashboardController as JobSeekerDashboardController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
+
+Route::get('/search-jobs', [JobSearchController::class, 'search'])->name('jobs.search');
 
 Route::get('/employer/register',[AuthEmployerController::class, 'showRegister'])->name('show.registeremployer');
 Route::get('/employer/login',[AuthEmployerController::class, 'showLogin'])->name('show.loginemployer');
@@ -81,12 +84,16 @@ Route::prefix('jobseeker')->middleware(['auth:web'])->group(function () {
     Route::post('/change-password', [JobSeekerProfileController::class, 'updatePassword'])->name('jobseeker.update-password');
     Route::post('/logout', [AuthJobSeekerController::class, 'logout'])->name('jobseeker.logout');
     Route::delete('/delete-account', [JobSeekerProfileController::class, 'destroy'])->name('jobseeker.delete-account');
-    Route::get('/jobs', [JobSeekerJobController::class, 'allJobs'])->name('jobseeker.jobs');
     Route::get('/jobs/{id}', [JobSeekerJobController::class, 'show'])->name('jobs.show');
+    Route::get('/jobs', [JobSeekerJobController::class, 'allJobs'])->name('jobseeker.jobs');
     Route::get('/jobs/{job}/apply', [ApplicationController::class, 'applyForm'])->name('job.apply.form');
     Route::post('/jobs/{job}/apply', [ApplicationController::class, 'apply'])->name('job.apply.submit');
     Route::delete('/jobseeker/application/{id}', [ApplicationController::class, 'destroyByUser'])->name('jobseeker.application.delete');
     // Show tracking page
     Route::get('/jobseeker/applications', [ApplicationController::class, 'trackApplications'])->name('jobseeker.applications');
 
+
 });
+    //unregistered users
+    Route::get('/jobs/{id}', [HomeController::class, 'show'])->name('job.details');
+    Route::get('/job', [HomeController::class, 'allJobs'])->name('browse.job');

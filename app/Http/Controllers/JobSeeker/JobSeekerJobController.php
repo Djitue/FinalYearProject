@@ -24,4 +24,30 @@ class JobSeekerJobController extends Controller
         return view('jobseeker.show', compact('job'));
     }
 
+    // public function savedJob(Request $request){
+    //     $id = $request->id;
+
+    //     $job = JobPosting::find($id);
+
+    //     if($job == null) {
+    //         sessiom()->flash('error', 'Job not found');
+    //         return response()->json([
+    //             'status' => false,
+    //         ]);
+    //     }
+
+    //     //check if user already saved job
+    //     $count = savedJob::where([
+    //         'user_ide' => Auth::user()->id,
+    //         'job_posting_id'=> $id
+    //     ])->count();
+
+    //     if ($count > 0){
+    //         sessiom()->flash('error', 'Job Saved already');
+    //         return response()->json([
+    //             'status' => false,
+    //         ]);
+    //     }
+    // }
+
 }

@@ -68,11 +68,11 @@
               <label>Job Type</label>
               <select name="job_type" value="{{ old('job_title', $job->job_type) }}" class="wide form-control">
                 <option data-display="Full Time">Full Time</option>
-                <option value="1">Part Time</option>
-                <option value="2">Freelancer</option>
-                <option value="3">Contract</option>
-                <option value="4">Internship</option>
-                <option value="5">Others</option>
+                <option value="Part Time">Part Time</option>
+                <option value="Freelancer">Freelancer</option>
+                <option value="Contract">Contract</option>
+                <option value="Internship">Internship</option>
+                <option value="Others5">Others</option>
               </select>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 m-clear">

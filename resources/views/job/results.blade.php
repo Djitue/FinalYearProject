@@ -5,50 +5,17 @@
     <div class="page-title">
     <div class="container">
         <div class="page-caption text-center">
-            <h2>Job In Grid</h2>
+            <h2>Search Results</h2>
             <p>
                 <a href="{{url('/')}}" title="Home">Home</a>
                     <i class="ti-angle-double-right"></i>
-                <a href="{{route('jobseeker.dashboard')}}" title="Dashboard">Dashboard</a>
-                    <i class="ti-angle-double-right"></i>
-                <a title="View Job">View Job</a>
+                <a title="Result of Search">Result of Search</a>
             </p>
         </div>
     </div>
     </div>
     <!-- ======================= End Page Title ===================== --> 
 
-    <!-- ======================= Search Filter ===================== -->
-    <section class="padd-0 padd-top-20 jov_search_block_inner">
-    <div class="row">
-        <div class="container">
-        <form>
-            <fieldset class="search-form">
-            <div class="col-md-4 col-sm-4">
-                <input type="text" class="form-control" placeholder="Job Title, Keywords or Company Name..." />
-            </div>
-            <div class="col-md-3 col-sm-3">
-                <input type="text" class="form-control" placeholder="Town" />
-            </div>
-            <div class="col-md-3 col-sm-3">
-                <select class="wide form-control">
-                <option data-display="Job Type">Show All</option>
-                <option value="1">Full Time</option>
-                <option value="2">Part Time</option>
-                <option value="3"> Internship</option>
-                <option value="4">Freelance</option>
-                <option value="5">Contract</option>
-                </select>
-            </div>
-            <div class="col-md-2 col-sm-2 m-clear">
-                <button type="submit" class="btn theme-btn full-width height-50 radius-0">Search</button>
-            </div>
-            </fieldset>
-        </form>
-        </div>
-    </div>
-    </section>
-    <!-- ======================= Search Filter ===================== --> 
     <section class="padd-top-80 padd-bot-80">
         <div class="container"> 
             <div class="row">
@@ -99,7 +66,4 @@
    </section> 
   
 @endsection
-
-
-
 

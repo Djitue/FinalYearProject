@@ -41,30 +41,30 @@
         <li class="dropdown"> <a href="{{url('/')}}">Home</a> </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employer</a>
           <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="employer.html">Employer</a></li>
-            <li><a href="employer-detail.html">Employer Detail</a></li>
-            <li><a href="create-company.html">Create Company</a></li>
-            <li><a href="manage-resume.html">Manage Resume</a></li>
-            <li><a href="add-job.html">Add Job</a></li>
-            <li><a href="resume-detail.html">Resume Detail</a></li>
+            {{-- <li><a href="employer.html">Employer</a></li> --}}
+            <li><a href="{{route('loginemployer')}}">Employer Login</a></li>
+            <li><a href="{{route('registeremployer')}}">Employer Register</a></li>
+            {{-- <li><a href="manage-resume.html">Manage Resume</a></li> --}}
+            <li><a href="loginemployer">Add Job</a></li>
+            {{-- <li><a href="resume-detail.html">Resume Detail</a></li> --}}
           </ul>
         </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Candidate</a>
           <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="candidate.html">Candidate</a></li>
-            <li><a href="browse-job.html">Browse Jobs</a></li>
-            <li><a href="manage-job.html">Manage Jobs</a></li>
-            <li><a href="browse-category.html">Browse Categories</a></li>
+            <li><a href="{{route('registerjobseeker')}}">Job Seeker Register</a></li>
+            <li><a href="{{route('loginjobseeker')}}">Job Seeker Login</a></li>
+            {{-- <li><a href="manage-job.html">Manage Jobs</a></li>
+            <li><a href="browse-category.html">Browse Categories</a></li> --}}
           </ul>
         </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
+        {{-- <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
           <ul class="dropdown-menu animated fadeOutUp">
             <li><a href="profile-settings.html">Profile Settings</a></li>
             <li><a href="job-detail.html">Job Detail</a></li>
             <li><a href="job-layout-one.html">Job Layout One</a></li>
             <li><a href="404.html">404</a></li>
           </ul>
-        </li>
+        </li> --}}
         <li class="dropdown"> <a href="contact.html">Contact</a> </li>
       </ul>
     </div>

@@ -7,44 +7,25 @@
     <div class="container">
         <div class="col-md-8 col-sm-10">
         <div class="caption cl-white home_two_slid">
-            <h2>Search Between More Then <span class="theme-cl">50,000</span> Open Jobs.</h2>
-            <p>Trending Jobs Keywords: <span class="trending_key"><a href="#">Web Designer</a></span> <span class="trending_key"><a href="#">Web Developer</a></span> <span class="trending_key"><a href="#">IOS Developer</a></span> <span class="trending_key"><a href="#">Android Developer</a></span></p>
+            <h2>Connecting Talent With Opportunity </h2>
+            <h3 style="color: white;">Unlock New Career Paths and Discover the Best Talent.</h3>
         </div>
-        <form>
+        <form action="{{ route('jobs.search') }}" method="GET">
             <fieldset class="utf_home_form_one">
             <div class="col-md-4 col-sm-4 padd-0">
                 <input type="text" class="form-control br-1" placeholder="Search Keywords..." />
             </div>
             <div class="col-md-3 col-sm-3 padd-0">
-                <select class="wide form-control br-1">
-                <option data-display="Location">All Country</option>
-                <option value="1">Afghanistan</option>
-                <option value="2">Albania</option>
-                <option value="3">Algeria</option>
-                <option value="4">Brazil</option>
-                <option value="5">Burundi</option>
-                <option value="6">Bulgaria</option>
-                <option value="7">Germany</option>
-                <option value="8">Grenada</option>
-                <option value="9">Guatemala</option>
-                <option value="10" disabled>Iceland</option>
-                </select>
+                 <input type="text" class="form-control br-1" style="border-radius: 0;" placeholder="Town" />
             </div>
             <div class="col-md-3 col-sm-3 padd-0">
                 <select class="wide form-control">
-                <option data-display="Category">Show All</option>
-                <option value="1">Software Developer</option>
-                <option value="2">Java Developer</option>
-                <option value="3">Software Engineer</option>
-                <option value="4">Web Developer</option>
-                <option value="5">PHP Developer</option>
-                <option value="6">Python Developer</option>
-                <option value="7">Front end Developer</option>
-                <option value="8">Associate Developer</option>
-                <option value="9">Back end Developer</option>
-                <option value="10">XML Developer</option>
-                <option value="11">.NET Developer</option>              
-                <option value="12" disabled>Marketting Developer</option>
+                <option data-display="Job Type">Show All</option>
+                <option value="1">Full Time</option>
+                <option value="2">Part Time</option>
+                <option value="3"> Internship</option>
+                <option value="4">Freelance</option>
+                <option value="5">Contract</option>
                 </select>
             </div>
             <div class="col-md-2 col-sm-2 padd-0 m-clear">
@@ -65,311 +46,85 @@
         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#" role="tab"> Recent Jobs</a> </li>
         </ul>
         <div class="tab-content"> 
-        <div class="tab-pane fade in show active" id="recent" role="tabpanel">
-            <div class="row"> 
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox" checked>
-                    <i class="fa fa-heart"></i> 
-                    </label>
+            <div class="tab-pane fade in show active" id="recent" role="tabpanel">
+                <div class="row"> 
+                <!-- Single Job -->
+                
+                {{-- <div class="col-md-3 col-sm-6">
+                    <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
+                    <div class="utf_job_like">
+                        <label class="toggler toggler-danger">
+                        <input type="checkbox" checked>
+                        <i class="fa fa-heart"></i> 
+                        </label>
+                    </div>
+                    <div class="u-content">
+                        <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_1.png" alt=""> </a> </div>
+                        <h5><a href="employer-detail.html">Product Redesign</a></h5>
+                        <p class="text-muted">2708 Scenic Way, IL 62373</p>
+                    </div>
+                    <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
+                    </div>
                 </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_1.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Product Redesign</a></h5>
-                    <p class="text-muted">2708 Scenic Way, IL 62373</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
+            </div> --}}
             
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
+            <!-- Featured Job -->
+            <section class="padd-top-80 padd-bot-80">
+                <div class="container"> 
+                    <div class="row">
+                        @forelse($jobs as $job)
+                            <div class="col-md-4 col-sm-6 mb-4">
+                                <div class="utf_grid_job_widget_area"> 
+                                    <span class="job-type full-type">{{ $job->job_type ?? 'N/A' }}</span>
+                                    <div class="utf_job_like">
+                                        <label class="toggler toggler-danger">
+                                        <input type="checkbox" checked>
+                                        <i class="fa fa-heart"></i> 
+                                        </label>
+                                    </div>
+                                    <div class="u-content">
+                                        <h5>
+                                            <a href="{{ route('jobs.show', $job->id) }}">
+                                                {{ $job->company_name ?? 'Company Name' }}
+                                            </a>
+                                        </h5>
+                                        <div class="avatar box-80"> 
+                                            <a href="{{ route('jobs.show', $job->id) }}">
+                                                <img class="img-responsive" 
+                                                src="{{ optional($job->employer)->logo ? asset('storage/' . $job->employer->logo) : asset('assets/img/company_logo_1.png') }}" 
+                                                alt=""> 
+                                            </a>
+                                        </div>
+                                        <h5>
+                                            <a href="{{ route('jobs.show', $job->id) }}">
+                                                {{ $job->job_title }}
+                                            </a>
+                                        </h5>
+                                        <p class="text-muted"><i class="ti-credit-card padd-r-10"></i>{{ $job->salary ?? 'Salary not provided' }}</p>
+                                        <p class="text-muted"><i class="ti-location-pin padd-r-10"></i>{{ $job->town ?? 'Location not specified' }}</p>
+                                    </div>
+                                    <div class="utf_apply_job_btn_item">
+                                        <a href="{{route('loginjobseeker')}}" class="btn-job theme-btn job-apply">
+                                            Apply Now
+                                        </a>
+                                        <a href="{{ route('job.details', $job->id) }}" title="" class="btn-job light-gray-btn">View Job</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @empty
+                                <p>No jobs available at the moment.</p>
+                        @endforelse
+                    </div>
                 </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_2.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">New Product Mockup</a></h5>
-                    <p class="text-muted">2708 Scenic Way, IL 62373</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox" checked>
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_3.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Custom Php Developer</a></h5>
-                    <p class="text-muted">3765 C Street, Worcester</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_4.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Wordpress Developer</a></h5>
-                    <p class="text-muted">2719 Duff Avenue, Winooski</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type internship-type">Internship</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox" checked>
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_5.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Web Maintenence</a></h5>
-                    <p class="text-muted">2708 Scenic Way, IL 62373</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_6.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Photoshop Designer</a></h5>
-                    <p class="text-muted">2865 Emma Street, Lubbock</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_7.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">HTML5 & CSS3 Coder</a></h5>
-                    <p class="text-muted">2719 Burnside Avenue, Logan</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox" checked>
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_8.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">.Net Developer</a></h5>
-                    <p class="text-muted">3815 Forest Drive, Alexandria</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        
-        <!-- Featured Job -->
-        <div class="tab-pane fade" id="featured" role="tabpanel">
-            <div class="row"> 
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_6.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">.Net Developer</a></h5>
-                    <p class="text-muted">2708 Scenic Way, IL 62373</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_4.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Java Developer</a></h5>
-                    <p class="text-muted">2708 Scenic Way, IL 62373</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Full Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_5.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Web Maintenence</a></h5>
-                    <p class="text-muted">3765 C Street, Worcester</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_1.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Wordpress Developer</a></h5>
-                    <p class="text-muted">2719 Duff Avenue, Winooski</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type internship-type">Internship</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_7.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Custom Php Developer</a></h5>
-                    <p class="text-muted">2708 Scenic Way, IL 62373</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_8.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">New Product Mockup</a></h5>
-                    <p class="text-muted">2865 Emma Street, Lubbock</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_3.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Product Redesign</a></h5>
-                    <p class="text-muted">2719 Burnside Avenue, Logan</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            
-            <!-- Single Job -->
-            <div class="col-md-3 col-sm-6">
-                <div class="utf_grid_job_widget_area"> <span class="job-type part-type">Part Time</span>
-                <div class="utf_job_like">
-                    <label class="toggler toggler-danger">
-                    <input type="checkbox">
-                    <i class="fa fa-heart"></i> 
-                    </label>
-                </div>
-                <div class="u-content">
-                    <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_6.png" alt=""> </a> </div>
-                    <h5><a href="employer-detail.html">Front End Designer</a></h5>
-                    <p class="text-muted">3815 Forest Drive, Alexandria</p>
-                </div>
-                <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
+        </section> 
         <div class="col-md-12 mrg-top-20 text-center">
-        <a href="job-layout-one.html" class="btn theme-btn btn-m">Browse All Jobs</a>
+            <a href="{{route('browse.job')}}" class="btn theme-btn btn-m">Browse All Jobs</a>
         </div>
     </div>
     </section>
 
     <!-- ================= Category start ========================= -->
-    <section class="utf_job_category_area">
+    {{-- <section class="utf_job_category_area">
     <div class="container">
         <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -487,29 +242,6 @@
             </div>
             <div class="col-md-12 mrg-top-20 text-center">
                 <a href="browse-category.html" class="btn theme-btn btn-m">View All Categories</a>
-            </div>
-        </div>
-        </div>
-    </div>
-    </section>
-
-    {{-- <section class="newsletter theme-bg" style="background-image:url(assets/img/bg-new.png)">
-    <div class="container">
-        <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="heading light">
-            <h2>Subscribe Our Newsletter!</h2>
-            <p>Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>
-            </div>
-        </div>
-        </div>
-        <div class="row">
-        <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
-            <div class="newsletter-box text-center">
-            <div class="input-group"> <span class="input-group-addon"><span class="ti-email theme-cl"></span></span>
-                <input type="text" class="form-control" placeholder="Enter your Email...">
-            </div>
-            <button type="button" class="btn theme-btn btn-radius btn-m">Subscribe</button>
             </div>
         </div>
         </div>
