@@ -97,3 +97,11 @@ Route::prefix('jobseeker')->middleware(['auth:web'])->group(function () {
     //unregistered users
     Route::get('/jobs/{id}', [HomeController::class, 'show'])->name('job.details');
     Route::get('/job', [HomeController::class, 'allJobs'])->name('browse.job');
+    // Route::get('/saved-job', [JobSeekerJobController::class, 'saveJob'])->name('saveJob');
+    Route::post('/jobs/{job}/save', [JobSeekerJobController::class, 'toggle'])
+        ->name('jobs.save');
+    
+    // View saved jobs
+    Route::get('/saved-jobs', [JobSeekerJobController::class, 'index'])
+        ->name('saved-jobs.index');
+

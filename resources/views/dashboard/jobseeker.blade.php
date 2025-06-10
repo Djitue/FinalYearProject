@@ -94,7 +94,7 @@
 
 			<!-- Saved Job -->
 			<div class="col-md-4 col-sm-4">
-				<a href="#" style="text-decoration: none;">
+				<a href="{{ route ('saved-jobs.index') }}" style="text-decoration: none;">
 					<div class="statusbox">
 						<h3>Saved Job</h3>
 						<div class="statusbox-content">

@@ -56,12 +56,15 @@
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="utf_grid_job_widget_area"> 
                             <span class="job-type full-type">{{ $job->job_type ?? 'N/A' }}</span>
-                            <div class="utf_job_like">
-                                <label class="toggler toggler-danger">
-                                <input type="checkbox" checked>
-                                <i class="fa fa-heart"></i> 
-                                </label>
-                            </div>
+                            @auth
+                                <div class="utf_job_like">
+                                    <label class="toggler toggler-danger">
+                                        <input type="checkbox" class="save-job-checkbox" data-job-id="{{ $job->id }}"
+                                            {{ auth()->user()->savedJobs->contains($job->id) ? 'checked' : '' }}>
+                                        <i class="fa fa-heart"></i>
+                                    </label>
+                                </div>
+                                @endauth
                             <div class="u-content">
                                 <h5>
                                     <a href="{{ route('jobs.show', $job->id) }}">
@@ -100,6 +103,36 @@
   
 @endsection
 
-
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.save-job-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const jobId = this.dataset.jobId;
+                const icon = this.nextElementSibling;
+                
+                fetch(`/jobs/${jobId}/save`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'added') {
+                        icon.style.color = 'red'; // or your preferred color
+                    } else {
+                        icon.style.color = ''; // reset to default
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    this.checked = !this.checked; // revert the checkbox
+                });
+            });
+        });
+    });
+</script>
 
 
