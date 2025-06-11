@@ -13,8 +13,10 @@ use App\Http\Controllers\Employer\DashboardController;
 use App\Http\Controllers\JobSeeker\JobSeekerJobController;
 use App\Http\Controllers\Employer\ProfileController as EmployerProfileController;
 use App\Http\Controllers\JobSeeker\ProfileController as JobSeekerProfileController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Employer\DashboardController as EmployerDashboardController;
 use App\Http\Controllers\JobSeeker\DashboardController as JobSeekerDashboardController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
@@ -33,10 +35,10 @@ Route::post('/jobseeker/register',[AuthJobSeekerController::class, 'register'])-
 Route::post('/jobseeker/login',[AuthJobSeekerController::class, 'login'])->name('loginjobseeker');
 // Route::post('/jobseeker/logout',[AuthJobSeekerController::class, 'logout'])->name('logoutjobseeker');
 
-Route::get('/admin/register',[AuthAdminController::class, 'showRegister'])->name('show.registeradmin');
-Route::get('/admin/login',[AuthAdminController::class, 'showLogin'])->name('show.loginadmin');
-Route::post('/admin/register',[AuthAdminController::class, 'register'])->name('registeradmin');
-Route::post('/admin/login',[AuthAdminController::class, 'login'])->name('loginadmin');
+Route::get('/admin1/register',[AuthAdminController::class, 'showRegister'])->name('show.registeradmin');
+Route::get('/admin1/login',[AuthAdminController::class, 'showLogin'])->name('show.loginadmin');
+Route::post('/admin1/register',[AuthAdminController::class, 'register'])->name('registeradmin');
+Route::post('/admin1/login',[AuthAdminController::class, 'login'])->name('loginadmin');
 // Route::post('/admin/logout',[AuthAdminController::class, 'logout'])->name('logoutadmin');
 
 // Employer Dashboard
@@ -92,8 +94,26 @@ Route::prefix('jobseeker')->middleware(['auth:web'])->group(function () {
     // Show tracking page
     Route::get('/jobseeker/applications', [ApplicationController::class, 'trackApplications'])->name('jobseeker.applications');
 
+});
+
+// Admin Dashboard
+Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('edit-profile', [AdminProfileController::class, 'edit'])->name('admin.edit-profile');
+    Route::post('edit-profile', [AdminProfileController::class, 'update'])->name('admin.update-profile');
+    Route::get('/change-password', [AdminProfileController::class, 'changePasswordForm'])->name('admin.change-password');
+    Route::post('/change-password', [AdminProfileController::class, 'updatePassword'])->name('admin.update-password');
+    Route::post('/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
+    Route::delete('/delete-account', [AdminProfileController::class, 'destroy'])->name('admin.delete-account');
 
 });
+
+
+
+
+
+
     //unregistered users
     Route::get('/jobs/{id}', [HomeController::class, 'show'])->name('job.details');
     Route::get('/job', [HomeController::class, 'allJobs'])->name('browse.job');

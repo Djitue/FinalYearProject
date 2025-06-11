@@ -35,19 +35,22 @@ class AuthAdminController extends Controller
     }
     public function login(Request $request)
     {
-         $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+          $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($validated)) {
-            $request->session()->regenerate();
-
-            return view('welcome');
+        if (Auth::guard('admin')->attempt($credentials)) {
+            return redirect()->route('admin.dashboard');
         }
 
-       throw ValidationException::withMessages([
-        'credentioals' => 'Sorry incorrect credentials'
-       ]);
+        return back()->withErrors(['email' => 'Invalid credentials']);
+    }
+
+    public function logout(Request $request)
+    {
+       Auth::guard('admin')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/'); // or redirect to login page  
     }
 }
