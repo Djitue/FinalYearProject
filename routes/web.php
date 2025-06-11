@@ -9,14 +9,15 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthEmployerController;
 use App\Http\Controllers\Employer\JobController;
 use App\Http\Controllers\AuthJobSeekerController;
+use App\Http\Controllers\Admin\ManageJobController;
 use App\Http\Controllers\Employer\DashboardController;
 use App\Http\Controllers\JobSeeker\JobSeekerJobController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Employer\ProfileController as EmployerProfileController;
 use App\Http\Controllers\JobSeeker\ProfileController as JobSeekerProfileController;
-use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Employer\DashboardController as EmployerDashboardController;
 use App\Http\Controllers\JobSeeker\DashboardController as JobSeekerDashboardController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
@@ -106,6 +107,13 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::post('/change-password', [AdminProfileController::class, 'updatePassword'])->name('admin.update-password');
     Route::post('/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
     Route::delete('/delete-account', [AdminProfileController::class, 'destroy'])->name('admin.delete-account');
+    //Manage job
+    Route::get('jobs', [ManageJobController::class, 'index'])->name('admin.jobs.index');        // View all jobs
+    Route::get('jobs/create', [ManageJobController::class, 'create'])->name('admin.jobs.create'); // Show create form
+    Route::post('jobs/store', [ManageJobController::class, 'store'])->name('admin.jobs.store');   // Store new job
+    Route::get('jobs/{id}/edit', [ManageJobController::class, 'edit'])->name('admin.jobs.edit');  // Show edit form
+    Route::put('jobs/{id}/update', [ManageJobController::class, 'update'])->name('admin.jobs.update'); // Update job
+    Route::delete('jobs/{id}/delete', [ManageJobController::class, 'destroy'])->name('admin.jobs.destroy'); // Delete job
 
 });
 

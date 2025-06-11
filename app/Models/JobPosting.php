@@ -55,6 +55,11 @@ class JobPosting extends Model
         return $this->hasMany(Application::class);
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
+
     public function savedByUsers()
     {
         return $this->belongsToMany(User::class, 'saved_jobs');

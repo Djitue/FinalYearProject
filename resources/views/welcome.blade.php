@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- ======================= Start Banner ===================== -->
-    <div class="utf_main_banner_area" style="background-image:url(assets/img/slider_bg.jpg);" data-overlay="8">
+    <div class="utf_main_banner_area" style="background-image:url(assets/img/slider_bg2.jpg);" data-overlay="8">
     <div class="container">
         <div class="col-md-8 col-sm-10">
         <div class="caption cl-white home_two_slid">

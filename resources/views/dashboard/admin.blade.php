@@ -59,12 +59,12 @@
 
 				<!-- Add Job -->
 				<div class="col-md-4 col-sm-4">
-					<a href="#" style="text-decoration: none;">
+					<a href="{{route('admin.jobs.index')}}" style="text-decoration: none;">
 						<div class="statusbox">
 							<h3>Manage Job</h3>
 							<div class="statusbox-content">
 								<p class="ic_status_item ic_col_one">
-									<i class="fa fa-plus-circle"></i>
+									<i class="fa fa-briefcase"></i>
 								</p>
 							</div>
 						</div>
@@ -92,21 +92,21 @@
 							<h3>Manage Employer</h3>
 							<div class="statusbox-content">
 								<p class="ic_status_item ic_col_three">
-									<i class="fa fa-briefcase"></i>
+									<i class="fa fa-users"></i>
 								</p>
 							</div>
 						</div>
 					</a>
 				</div> 
 
-                <!-- Manage Job -->
+                <!-- Platform Analysis -->
 				<div class="col-md-4 col-sm-4">
 					<a href="#" style="text-decoration: none;">
 						<div class="statusbox">
 							<h3>Platform Analysis</h3>
 							<div class="statusbox-content">
 								<p class="ic_status_item ic_col_three">
-									<i class="fa fa-briefcase"></i>
+									<i class="fa fa-plus-circle"></i>
 								</p>
 							</div>
 						</div>
