@@ -35,31 +35,52 @@ class ManageJobSeekerController extends Controller
         return redirect()->back()->with('success', 'Job Seeker created successfully.');
     }
 
-    // public function show(JobSeeker $jobSeeker)
-    // {
-    //     return view('admin.job_seekers.show', compact('jobSeeker'));
-    // }
+    public function show($id)
+    {
+        $jobSeeker = User::findOrFail($id);
+        return view('admin.job_seekers.jobseeker', compact('jobSeeker'));
+    }
 
-    // public function edit(JobSeeker $jobSeeker)
-    // {
-    //     return view('admin.job_seekers.edit', compact('jobSeeker'));
-    // }
+    public function edit($id)
+    {   
+         $jobseeker = User::findOrFail($id);
+        return view('admin.job_seekers.edit', compact('jobseeker'));
+    }
 
-    // public function update(Request $request, JobSeeker $jobSeeker)
-    // {
-    //     $validated = $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'email' => "required|email|unique:job_seekers,email,{$jobSeeker->id}",
-    //     ]);
+    public function update(Request $request, $id)
+    {
+        $jobSeeker = User::findOrFail($id); // Fetch the job seeker
 
-    //     $jobSeeker->update($validated);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'gender' => 'nullable|string',
+            'skill' => 'nullable|string',
+            'age' => 'nullable|string',
+            'language' => 'nullable|string',
+            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-    //     return redirect()->route('job-seekers.index')->with('success', 'Job Seeker updated successfully.');
-    // }
+        // Handle file uploads
+        if ($request->hasFile('cv')) {
+            $validated['cv'] = $request->file('cv')->store('cvs', 'public');
+        }
 
-    // public function destroy(JobSeeker $jobSeeker)
-    // {
-    //     $jobSeeker->delete();
-    //     return redirect()->route('job-seekers.index')->with('success', 'Job Seeker deleted successfully.');
-    // }
+        if ($request->hasFile('profile_picture')) {
+            $validated['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
+        }
+
+        $jobSeeker->update($validated);
+
+        return redirect()->back()->with('success', 'Job Seeker updated successfully.');
+    }
+
+    public function destroy(JobSeeker $jobSeeker)
+    {
+        $jobSeeker->delete();
+        return redirect()->route('job-seekers.index')->with('success', 'Job Seeker deleted successfully.');
+    }
 }

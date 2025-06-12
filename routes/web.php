@@ -11,6 +11,7 @@ use App\Http\Controllers\Employer\JobController;
 use App\Http\Controllers\AuthJobSeekerController;
 use App\Http\Controllers\Admin\ManageJobController;
 use App\Http\Controllers\Employer\DashboardController;
+use App\Http\Controllers\Admin\ManageEmployerController;
 use App\Http\Controllers\Admin\ManageJobSeekerController;
 use App\Http\Controllers\JobSeeker\JobSeekerJobController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
@@ -125,6 +126,15 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/job-seekers/{id}/edit', [ManageJobSeekerController::class, 'edit'])->name('job-seekers.edit');// Show edit form
     Route::put('/job-seekers/{id}', [ManageJobSeekerController::class, 'update'])->name('job-seekers.update');// Update job seeker
     Route::delete('/job-seekers/{id}', [ManageJobSeekerController::class, 'destroy'])->name('job-seekers.destroy');// Delete job seeker
+
+    // Admin routes to manage employers
+    Route::get('/employers', [ManageEmployerController::class, 'index'])->name('employers.index');           // List all employers
+    Route::get('/employers/create', [ManageEmployerController::class, 'create'])->name('employers.create');   // Show create form
+    Route::post('/employers', [ManageEmployerController::class, 'store'])->name('employers.store');           // Store new employer
+    Route::get('/employers/{id}', [ManageEmployerController::class, 'show'])->name('employers.show');         // Show employer detail
+    Route::get('/employers/{id}/edit', [ManageEmployerController::class, 'edit'])->name('employers.edit');    // Show edit form
+    Route::put('/employers/{id}', [ManageEmployerController::class, 'update'])->name('employers.update');     // Update employer
+    Route::delete('/employers/{id}', [ManageEmployerController::class, 'destroy'])->name('employers.destroy');// Delete employer
 
 
 });

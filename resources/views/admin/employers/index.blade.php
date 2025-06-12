@@ -12,7 +12,7 @@
         <i class="ti-angle-double-right"></i>
         <a href="{{route('admin.dashboard')}}" title="Home">Dashboard</a> 
         <i class="ti-angle-double-right"></i>
-        <a> View Job Seeker</a>
+        <a> View Employer</a>
       </p>
     </div>
   </div>
@@ -24,26 +24,26 @@
   <div class="container"> 
     <div class="row">
       <div class="mb-3 text-right">
-          <a href="{{ route('job-seekers.create') }}" class="btn btn-primary">
-              <i class="fa fa-plus"></i> Create New Job Seeker
+          <a href="{{ route('employers.create') }}" class="btn btn-primary">
+              <i class="fa fa-plus"></i> Create New Employer
           </a>
       </div>
-      @forelse($jobSeekers as $jobSeeker)
+      @forelse($employers as $employer)
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="contact-box">
             <div class="contact-img">
-              <img src="{{ Storage::url($jobSeeker->profile_picture ?? 'default.jpg') }}" class="img-responsive" alt="{{ $jobSeeker->name }}">
+              <img src="{{ Storage::url($employer->profile_picture ?? 'default.jpg') }}" class="img-responsive" alt="{{ $employer->name }}">
                 {{-- <img alt="user photo" src="{{ Storage::url($admin->profile_picture) }}">  --}}
             </div>
             <div class="contact-caption">
-              <a href="{{route('job-seekers.show', ['id' => $jobSeeker->id])}}">{{ $jobSeeker->name }}</a>
-              <span>{{ $jobSeeker->address ?? 'No address' }}</span>
-              <p>{{ $jobSeeker->email }}</p>
+              <a href="{{route('employers.show', ['id' => $employer->id])}}">{{ $employer->name }}</a>
+              <span>{{ $employer->address ?? 'No address' }}</span>
+              <p>{{ $employer->email }}</p>
             </div>
           </div>
         </div>
         @empty
-            <p class="text-center">No job seekers found.</p>
+            <p class="text-center">No Employer found.</p>
         @endforelse
     </div>
   </div>

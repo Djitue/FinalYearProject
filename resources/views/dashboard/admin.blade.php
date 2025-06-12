@@ -85,9 +85,9 @@
 					</a>
 				</div>
 
-				<!-- Manage Job -->
+				<!-- Manage Employer -->
 				<div class="col-md-4 col-sm-4">
-					<a href="#" style="text-decoration: none;">
+					<a href="{{route('employers.index')}}" style="text-decoration: none;">
 						<div class="statusbox">
 							<h3>Manage Employer</h3>
 							<div class="statusbox-content">
