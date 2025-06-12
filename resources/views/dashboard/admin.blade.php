@@ -73,7 +73,7 @@
 				
 				<!-- View Candidates -->
 				<div class="col-md-4 col-sm-4">
-					<a href="#" style="text-decoration: none;">
+					<a href="{{route('job-seekers.index')}}" style="text-decoration: none;">
 						<div class="statusbox">
 							<h3>Manage Job Seeker</h3>
 							<div class="statusbox-content">
