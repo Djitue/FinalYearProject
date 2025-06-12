@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Employer;
 use App\Models\JobPosting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,10 +15,15 @@ class ManageJobController extends Controller
         return view('admin.job', compact('jobs'));
     }
 
+    public function create()
+    {
+        $employers = Employer::all(); 
+        return view('admin.create-job', compact('employers'));
+    }
+
+
     public function store(Request $request)
     {
-
-        $data['employer_id'] = Auth::guard('admin')->id();
 
         $request->validate([
         'job_title' => 'required|string',
@@ -51,7 +57,8 @@ class ManageJobController extends Controller
         'facebook', 'X', 'linkedin', 'instagram'
     ]);
 
-    $data['employer_id'] = Auth::guard('admin')->id(); // Admin creating job
+    $data['employer_id'] = $request->input('employer_id'); // Set selected employer
+
 
     // Handle logo upload
     if ($request->hasFile('logo')) {
@@ -65,7 +72,8 @@ class ManageJobController extends Controller
 
     JobPosting::create($data);
 
-    return redirect()->route('admin.jobs.index')->with('success', 'Job created.');
+    return redirect()->back()->with('success', 'Job created successfully.');
+
     }
 
     public function edit($id)
