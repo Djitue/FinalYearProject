@@ -40,10 +40,10 @@
         <tbody>
           @forelse ($jobs as $job)
           <tr>
-            <td><a href="{{ route('employer.job-detail', ['id' => $job->id]) }}"> {{ $job->job_title }} </a></td>
-            <td><a href="{{ route('employer.job-detail', ['id' => $job->id]) }}"> {{ $job->job_type ?? 'Not specified'}} </a></td>
-            <td><a href="{{ route('employer.job-detail', ['id' => $job->id]) }}"> {{ $job->town ?? 'Not specified' }} </a></td>
-            <td><a href="{{ route('employer.job-detail', ['id' => $job->id]) }}"> {{ $job->created_at->format('d M Y') }} </a></td>
+            <td><a href="{{ route('admin.job-detail', ['id' => $job->id]) }}"> {{ $job->job_title }} </a></td>
+            <td><a href="{{ route('admin.job-detail', ['id' => $job->id]) }}"> {{ $job->job_type ?? 'Not specified'}} </a></td>
+            <td><a href="{{ route('admin.job-detail', ['id' => $job->id]) }}"> {{ $job->town ?? 'Not specified' }} </a></td>
+            <td><a href="{{ route('admin.job-detail', ['id' => $job->id]) }}"> {{ $job->created_at->format('d M Y') }} </a></td>
             <td><a href="{{route('admin.jobs.edit', $job->id)}}" class="cl-success mrg-5" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></a> 
             <form action="{{ route('admin.jobs.destroy', $job->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this job?');">
               @csrf

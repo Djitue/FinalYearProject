@@ -146,4 +146,12 @@ class ManageJobController extends Controller
 
         return redirect()->route('admin.jobs.index')->with('success', 'Job deleted.');
     }
+
+    public function show($id)
+    {
+        $job = JobPosting::findOrFail($id); // fetch job or show 404
+
+        return view('admin.job-details', compact('job'));
+    }
+
 }

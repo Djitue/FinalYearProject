@@ -114,6 +114,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('jobs/{id}/edit', [ManageJobController::class, 'edit'])->name('admin.jobs.edit');  // Show edit form
     Route::put('jobs/{id}/update', [ManageJobController::class, 'update'])->name('admin.jobs.update'); // Update job
     Route::delete('jobs/{id}/delete', [ManageJobController::class, 'destroy'])->name('admin.jobs.destroy'); // Delete job
+    Route::get('job-detail/{id}', [ManageJobController::class, 'show'])->name('admin.job-detail');
 
 });
 
