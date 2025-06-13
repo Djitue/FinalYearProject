@@ -4,8 +4,8 @@
   <div class="container"> 
     <div class="row">
 	  <div class="col-md-3 col-sm-4">
-        <a href="index-2.html"><img class="footer-logo" src="assets/img/logo.png" alt=""></a>
-        <p>Lorem Ipsum is simply dummy text of printing and type setting industry. Lorem Ipsum been industry standard dummy text ever since.</p>
+         <a href="{{url('/')}}"><h2 style="color: #28a745;">JOBSPHERE237</h2></a>
+        <p>We connect job seekers with the right employers and help companies find top talent. Together, we’re reducing unemployment and building brighter futures. </p>
         <!-- Social Box -->
         <div class="f-social-box">
           <ul>
