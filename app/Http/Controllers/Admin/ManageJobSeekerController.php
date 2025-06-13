@@ -47,13 +47,13 @@ class ManageJobSeekerController extends Controller
         return view('admin.job_seekers.edit', compact('jobseeker'));
     }
 
-    public function update(Request $request, $id)
+        public function update(Request $request, $id)
     {
-        $jobSeeker = User::findOrFail($id); // Fetch the job seeker
+        $jobSeeker = User::findOrFail($id); // Or however you retrieve the model
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id, // Prevent conflict on same record
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
             'gender' => 'nullable|string',
@@ -68,7 +68,6 @@ class ManageJobSeekerController extends Controller
         if ($request->hasFile('cv')) {
             $validated['cv'] = $request->file('cv')->store('cvs', 'public');
         }
-
         if ($request->hasFile('profile_picture')) {
             $validated['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
         }
@@ -78,7 +77,7 @@ class ManageJobSeekerController extends Controller
         return redirect()->back()->with('success', 'Job Seeker updated successfully.');
     }
 
-    public function destroy(JobSeeker $jobSeeker)
+    public function destroy(User $jobSeeker)
     {
         $jobSeeker->delete();
         return redirect()->route('job-seekers.index')->with('success', 'Job Seeker deleted successfully.');
