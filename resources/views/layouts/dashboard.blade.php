@@ -2,4 +2,6 @@
 
 @yield('content')
 
+@yield('scripts')
+
 @include('partials.dashboard-footer')

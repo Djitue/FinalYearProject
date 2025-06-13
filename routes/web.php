@@ -9,6 +9,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthEmployerController;
 use App\Http\Controllers\Employer\JobController;
 use App\Http\Controllers\AuthJobSeekerController;
+use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\ManageJobController;
 use App\Http\Controllers\Employer\DashboardController;
 use App\Http\Controllers\Admin\ManageEmployerController;
@@ -136,6 +137,8 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::put('/employers/{id}', [ManageEmployerController::class, 'update'])->name('employers.update');     // Update employer
     Route::delete('/employers/{id}', [ManageEmployerController::class, 'destroy'])->name('employers.destroy');// Delete employer
 
+    //Analytics
+    Route::get('/admin/analytics', [AnalyticsController::class, 'analytics'])->name('admin.analytics');
 
 });
 
