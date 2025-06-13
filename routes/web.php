@@ -15,6 +15,7 @@ use App\Http\Controllers\Employer\DashboardController;
 use App\Http\Controllers\Admin\ManageEmployerController;
 use App\Http\Controllers\Admin\ManageJobSeekerController;
 use App\Http\Controllers\JobSeeker\JobSeekerJobController;
+use App\Http\Controllers\JobSeeker\RecommendationController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Employer\ProfileController as EmployerProfileController;
@@ -97,6 +98,7 @@ Route::prefix('jobseeker')->middleware(['auth:web'])->group(function () {
     Route::delete('/jobseeker/application/{id}', [ApplicationController::class, 'destroyByUser'])->name('jobseeker.application.delete');
     // Show tracking page
     Route::get('/jobseeker/applications', [ApplicationController::class, 'trackApplications'])->name('jobseeker.applications');
+     Route::get('/recommended-jobs', [RecommendationController::class, 'recommendedJobs'])->name('jobseeker.recommended.jobs');
 
 });
 

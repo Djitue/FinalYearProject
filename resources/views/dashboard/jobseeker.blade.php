@@ -106,9 +106,23 @@
 				</a>
 			</div> 
 
+			<!-- Recommendation -->
+			<div class="col-md-4 col-sm-4">
+				<a href="{{route('jobseeker.recommended.jobs')}}" style="text-decoration: none;">
+					<div class="statusbox">
+						<h3>rcommended Jobs</h3>
+						<div class="statusbox-content">
+							<p class="ic_status_item ic_col_three">
+								<i class="fa fa-folder-open"></i>
+							</p>
+						</div>
+					</div>
+				</a>
+			</div> 
+
 			<!-- Transaction Details -->
 			<div class="col-md-4 col-sm-4">
-				<a href="{{route('employer.manage-job')}}" style="text-decoration: none;">
+				<a href="#" style="text-decoration: none;">
 					<div class="statusbox">
 						<h3>Transaction Details</h3>
 						<div class="statusbox-content">

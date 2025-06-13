@@ -41,34 +41,8 @@
     <!-- ================= Job start ========================= -->
     <section class="padd-top-80 padd-bot-80">
     <div class="container"> 
-        <ul class="nav nav-tabs nav-advance theme-bg" role="tablist">
-        <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#recent" role="tab"> Latest Jobs</a> </li>
-        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#" role="tab"> Recent Jobs</a> </li>
-        </ul>
+       <h2 style="text-align: center;">AVAILABLE JOBS</h2>
         <div class="tab-content"> 
-            <div class="tab-pane fade in show active" id="recent" role="tabpanel">
-                <div class="row"> 
-                <!-- Single Job -->
-                
-                {{-- <div class="col-md-3 col-sm-6">
-                    <div class="utf_grid_job_widget_area"> <span class="job-type full-type">Full Time</span>
-                    <div class="utf_job_like">
-                        <label class="toggler toggler-danger">
-                        <input type="checkbox" checked>
-                        <i class="fa fa-heart"></i> 
-                        </label>
-                    </div>
-                    <div class="u-content">
-                        <div class="avatar box-80"> <a href="employer-detail.html"> <img class="img-responsive" src="assets/img/company_logo_1.png" alt=""> </a> </div>
-                        <h5><a href="employer-detail.html">Product Redesign</a></h5>
-                        <p class="text-muted">2708 Scenic Way, IL 62373</p>
-                    </div>
-                    <div class="utf_apply_job_btn_item"> <a href="job-detail.html" class="btn job-browse-btn btn-radius br-light">Apply Now</a> </div>
-                    </div>
-                </div>
-            </div> --}}
-            
-            <!-- Featured Job -->
             <section class="padd-top-80 padd-bot-80">
                 <div class="container"> 
                     <div class="row">
@@ -116,10 +90,10 @@
                         @endforelse
                     </div>
                 </div>
+                <div class="col-md-12 mrg-top-20 text-center">
+                    <a href="{{route('browse.job')}}" class="btn theme-btn btn-m">Browse All Jobs</a>
+                </div>
         </section> 
-        <div class="col-md-12 mrg-top-20 text-center">
-            <a href="{{route('browse.job')}}" class="btn theme-btn btn-m">Browse All Jobs</a>
-        </div>
     </div>
     </section>
 
