@@ -25,7 +25,7 @@ class ApplicationController extends Controller
             ->where('job_posting_id', $jobId)
             ->first();
 
-        if ($applicationCount > 0) {
+        if ($existingApplication) {
              return back()->withErrors(['email' => 'You have already applied for this job or withdrawn your application.']);
         }
 

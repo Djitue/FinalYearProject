@@ -46,9 +46,9 @@
                         @foreach ($job->applications as $application)
                             <tr>
 
-                                <td>{{ $application->user->name }}</td>
-                                <td>{{ $application->user->email }}</td>
-                                <td>{{ $application->user->phone }}</td>
+                                <td>{{ $application->name }}</td>
+                                <td>{{ $application->email }}</td>
+                                <td>{{ $application->phone }}</td>
                                 <td>{{ $application->created_at->format('d M Y') }}</td> 
                                 <td>
                                     <a href="{{ asset('storage/' . $application->cv) }}" target="_blank">View Resume</a>

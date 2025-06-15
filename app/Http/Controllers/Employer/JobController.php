@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Employer;
 
 use App\Models\JobPosting;
 use App\Models\Application;
+use App\Models\User;
+use App\Classes\SendSMS;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Usermail;
+use Illuminate\Support\Facades\Stroage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -160,16 +165,17 @@ class JobController extends Controller
 
     public function viewApplicants($jobId)
     {
-       
         $job = JobPosting::where('id', $jobId)
             ->where('employer_id', auth()->id()) // Ensure security
             ->with(['applications' => function ($query) {
-                $query->where('deleted_by_user', false); //  Filter out deleted applications
-            }, 'applications.user']) // Load applicants and their user info
+                $query->where('deleted_by_user', false)
+                    ->with('user'); // Explicitly eager load the user inside the constraint
+            }])
             ->firstOrFail();
 
         return view('employer.applicants', compact('job'));
-        }
+    }
+
 
     public function updateStatus(Request $request, $id)
     {
@@ -179,7 +185,22 @@ class JobController extends Controller
 
         $applicant = Application::findOrFail($id);
         $applicant->status = $request->status;
+        // $applicant->email = $request->email;
+        //      $applicant->phone = $request->phone;
+
         $applicant->save();
+            $job = $applicant->jobposting;
+ 
+            // $sendMail = new Usermail($applicant->name, $job, $request->status);
+            $sendMail = new Usermail($applicant->name, $applicant->email, $job, $request->status);
+    
+          Mail::to($applicant->email)->send($sendMail);
+
+        // $message = "Hello ". $applicant->name.'.Welcome to our  platform'.'.your '. $applicant->status. ' account has been created successfully '. 'and your credentials will be available to your email.  Thank you';
+        // $sms = new SendSMS();
+
+        // $sms->sendSMS('237'.$applicant->user->phone, $message);                        
+
 
         return redirect()->back()->with('success', 'Applicant status updated successfully.');
     }

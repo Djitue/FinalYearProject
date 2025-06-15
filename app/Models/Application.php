@@ -20,7 +20,7 @@ class Application extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function job()
+    public function jobposting()
     {
         return $this->belongsTo(JobPosting::class, 'job_posting_id');
     }
