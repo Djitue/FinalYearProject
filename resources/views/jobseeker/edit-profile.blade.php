@@ -87,6 +87,13 @@
 				</div>
 
 				<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="form-group">
+						<label>Education Level</label>
+						<input type="text" class="form-control"  name="education" value="{{ old('education', $user->education) }}" placeholder="Bachelor Degree, Masters">
+					</div>
+				</div>
+
+				<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label>Gender</label>
 					<select name="gender" class="wide form-control">

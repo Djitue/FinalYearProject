@@ -80,6 +80,8 @@ Route::middleware(['auth:employer'])->group(function () {
     Route::delete('/applicants/{id}', [JobController::class, 'destroyapplication'])->name('applicants.destroy');
 
 
+    Route::get('/employer/job-postings/{id}/matches', [JobController::class, 'getMatchingJobSeekers'])->name('job.matches');
+
 });
 
 // Jobseeker Dashboard

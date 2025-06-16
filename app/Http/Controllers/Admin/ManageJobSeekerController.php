@@ -56,6 +56,7 @@ class ManageJobSeekerController extends Controller
             'email' => 'required|email|unique:users,email,' . $id, // Prevent conflict on same record
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
+            'education' => 'nullable|string|max:255',
             'gender' => 'nullable|string',
             'skill' => 'nullable|string',
             'age' => 'nullable|string',

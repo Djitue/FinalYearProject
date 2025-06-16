@@ -88,10 +88,17 @@
 				</div>
 
 				<div class="col-md-6 col-sm-6 col-xs-12">
-				<div class="form-group">
-					<label>Address</label>
-					<input type="text" class="form-control"  name="address" value="{{ old('address', $admin->address) }}" placeholder="Address">
+					<div class="form-group">
+						<label>Address</label>
+						<input type="text" class="form-control"  name="address" value="{{ old('address', $admin->address) }}" placeholder="Address">
+					</div>
 				</div>
+
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="form-group">
+						<label>Education Level</label>
+						<input type="text" class="form-control"  name="education" value="{{ old('education', $admin->education) }}" placeholder="Address">
+					</div>
 				</div>
 
 				<div class="col-md-6 col-sm-6 col-xs-12">

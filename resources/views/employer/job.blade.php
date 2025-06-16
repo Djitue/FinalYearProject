@@ -34,14 +34,19 @@
             <td><a href="{{ route('employer.job-detail', ['id' => $job->id]) }}"> {{ $job->job_type ?? 'Not specified'}} </a></td>
             <td><a href="{{ route('employer.job-detail', ['id' => $job->id]) }}"> {{ $job->town ?? 'Not specified' }} </a></td>
             <td><a href="{{ route('employer.job-detail', ['id' => $job->id]) }}"> {{ $job->created_at->format('d M Y') }} </a></td>
-            <td><a href="{{route('jobs.edit', $job->id)}}" class="cl-success mrg-5" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></a> 
-            <form action="{{ route('jobs.destroy', $job->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this job?');">
-              @csrf
-              @method('DELETE')
-              <button type="submit" class="cl-danger mrg-5" data-toggle="tooltip" data-original-title="Delete" style="background: none; border: none; padding: 0;">
-                  <i class="fa fa-trash-o"></i>
-              </button>
-            </form>
+            <td>
+              <a href="{{route('jobs.edit', $job->id)}}" class="cl-success mrg-5" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></a> 
+              <a href="{{ route('job.matches', ['id' => $job->id]) }}" class="cl-success mrg-5" data-toggle="tooltip" title="View Matches">
+                  <i class="fa fa-users"></i>
+              </a>
+                      
+              <form action="{{ route('jobs.destroy', $job->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this job?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="cl-danger mrg-5" data-toggle="tooltip" data-original-title="Delete" style="background: none; border: none; padding: 0;">
+                    <i class="fa fa-trash-o"></i>
+                </button>
+              </form>
             </td>
           </tr>
           @empty

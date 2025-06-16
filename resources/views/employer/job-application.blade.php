@@ -9,7 +9,7 @@
             <p>
                 <a href="{{url('/')}}" title="Home">Home</a>
                     <i class="ti-angle-double-right"></i>
-                <a href="{{route('jobseeker.dashboard')}}" title="Dashboard">Dashboard</a>
+                <a href="{{route('employer.dashboard')}}" title="Dashboard">Dashboard</a>
                     <i class="ti-angle-double-right"></i>
                 <a title="View Job">View Candidate</a>
             </p>

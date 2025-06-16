@@ -39,7 +39,7 @@
                     <tbody>
                         @foreach ($applications as $application)
                             <tr>
-                                <td>{{ $application->job?->job_title ?? 'Job not found' }}</td>
+                                <td>{{ $application->jobposting->job_title ?? 'Job not found' }}</td>
 
                                 <td>{{ $application->created_at->format('d M Y') }}</td> 
                                 <td>

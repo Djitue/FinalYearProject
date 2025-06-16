@@ -73,7 +73,7 @@ class ApplicationController extends Controller
         // Get applications that are not deleted by the user
         $applications = Application::where('user_id', $userId)
             ->where('deleted_by_user', false)
-            ->with('job') // Load job details for display
+            ->with('jobposting') // Load job details for display
             ->latest()
             ->get();
 

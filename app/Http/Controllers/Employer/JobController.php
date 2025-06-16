@@ -219,4 +219,80 @@ class JobController extends Controller
         return redirect()->back()->with('success', 'Application deleted successfully.');
     }
 
+    // public function getMatchingJobSeekers($id)
+    //  {
+    //     $job = JobPosting::findOrFail($id);
+
+    //     // Process required skills and education
+    //     $requiredSkills = collect(explode(',', $job->skill))
+    //                         ->map(fn($s) => strtolower(trim($s)))
+    //                         ->filter();
+    //     $requiredEducation = strtolower(trim($job->requirement));
+
+    //     // Fetch all users (or use where if you're sure of format)
+    //     $jobSeekers = User::all();
+
+    //     $matchedSeekers = $jobSeekers->filter(function ($seeker) use ($requiredSkills, $requiredEducation) {
+    //         $seekerSkills = collect(explode(',', $seeker->skill))
+    //                             ->map(fn($s) => strtolower(trim($s)))
+    //                             ->filter();
+
+    //         $matchedSkills = $seekerSkills->intersect($requiredSkills);
+
+    //         // Match only if at least one skill and education matches
+    //         return $matchedSkills->count() > 0 && str_contains(strtolower($seeker->education), $requiredEducation);
+    //     })->map(function ($seeker) use ($requiredSkills) {
+    //         $seekerSkills = collect(explode(',', $seeker->skill))
+    //                             ->map(fn($s) => strtolower(trim($s)))
+    //                             ->filter();
+
+    //         $seeker->matched_skills = $seekerSkills->intersect($requiredSkills);
+    //         $seeker->matched_count = $seeker->matched_skills->count();
+    //         return $seeker;
+    //     })->sortByDesc('matched_count')->values();
+
+    //     return view('employer.matched_job_seeker', compact('matchedSeekers', 'job'));
+    // }
+
+    public function getMatchingJobSeekers($id)
+    {
+        $job = JobPosting::findOrFail($id);
+
+        $requiredSkills = collect(explode(',', $job->skill))
+                            ->map(fn($s) => strtolower(trim($s)))
+                            ->filter();
+
+        $requiredEducation = strtolower(trim($job->requirement));
+
+        // ✅ Get user IDs of job seekers who applied to this job
+        $appliedUserIds = Application::where('job_posting_id', $id)
+                                    ->pluck('user_id')
+                                    ->toArray();
+
+        // ✅ Get only those users who applied
+        $jobSeekers = User::whereIn('id', $appliedUserIds)->get();
+
+        // ✅ Matching logic
+        $matchedSeekers = $jobSeekers->filter(function ($seeker) use ($requiredSkills, $requiredEducation) {
+            $seekerSkills = collect(explode(',', $seeker->skill))
+                                ->map(fn($s) => strtolower(trim($s)))
+                                ->filter();
+
+            $matchedSkills = $seekerSkills->intersect($requiredSkills);
+
+            return $matchedSkills->count() > 0 &&
+                str_contains(strtolower($seeker->education), $requiredEducation);
+        })->map(function ($seeker) use ($requiredSkills) {
+            $seekerSkills = collect(explode(',', $seeker->skill))
+                                ->map(fn($s) => strtolower(trim($s)))
+                                ->filter();
+
+            $seeker->matched_skills = $seekerSkills->intersect($requiredSkills);
+            $seeker->matched_count = $seeker->matched_skills->count();
+            return $seeker;
+        })->sortByDesc('matched_count')->values();
+
+        return view('employer.matched_job_seeker', compact('matchedSeekers', 'job'));
+    }
+
 }

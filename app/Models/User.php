@@ -28,6 +28,7 @@ class User extends Authenticatable
         'language', 
         'cv', 
         'profile_picture',
+        'education',
     ];
 
     /**

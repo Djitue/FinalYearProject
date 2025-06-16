@@ -26,6 +26,7 @@ class ProfileController extends Controller
             'email' => 'required|email|unique:users,email,' . Auth::id(),
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
+            'education' => 'nullable|string|max:255',
             'gender' => 'nullable|string',
             'skill' => 'nullable|string',
             'age' => 'nullable|string',
@@ -64,6 +65,7 @@ class ProfileController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->address = $request->address;
+        $user->education = $request->education;
         $user->gender = $request->gender;
         $user->skill = $request->skill;
         $user->age = $request->age;
