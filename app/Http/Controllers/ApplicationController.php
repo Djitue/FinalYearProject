@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\JobPosting;
 use App\Models\Application;
+use App\Mail\JobApplicationMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
@@ -41,7 +43,7 @@ class ApplicationController extends Controller
         $cvPath = $request->file('cv')->store('cvs', 'public');
 
         // Save application
-        Application::create([
+        $application = Application::create([
             'user_id'=> $userId,
             'job_posting_id' => $jobId,
             'cv' => $cvPath,
@@ -51,7 +53,19 @@ class ApplicationController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->back()->with('success', 'Application submitted successfully!');
+         // Get the job posting and employer details
+        $jobPosting = JobPosting::with('employer')->findOrFail($jobId);
+
+        // Send email notification to employer
+        try {
+            Mail::to($jobPosting->employer->email)
+                ->send(new JobApplicationMail($application));
+        } catch (\Exception $e) {
+            // Log the error but don't let it affect the user experience
+            \Log::error('Failed to send application email: ' . $e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Application submitted successfully! The employer will be notified.');
     }
 
     public function destroyByUser($id)

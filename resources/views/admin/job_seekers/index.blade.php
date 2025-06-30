@@ -6,7 +6,7 @@
 <div class="page-title">
   <div class="container">
     <div class="page-caption">
-      <h2>Employer</h2>
+      <h2>Job Seeker</h2>
       <p>
         <a href="{{url('/')}}" title="Home">Home</a>
         <i class="ti-angle-double-right"></i>

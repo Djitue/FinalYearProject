@@ -20,22 +20,22 @@
     <section class="padd-0 padd-top-20 jov_search_block_inner">
     <div class="row">
         <div class="container">
-        <form>
+        <form action="{{ route('jobs.search') }}" method="GET">
             <fieldset class="search-form">
             <div class="col-md-4 col-sm-4">
-                <input type="text" class="form-control" placeholder="Job Title, Keywords or Company Name..." />
+                <input type="text" name="keyword" class="form-control" placeholder="Job Title, Keywords or Company Name..." />
             </div>
             <div class="col-md-3 col-sm-3">
-                <input type="text" class="form-control" placeholder="Town" />
+                <input type="text" name="town" class="form-control" placeholder="Town" />
             </div>
             <div class="col-md-3 col-sm-3">
-                <select class="wide form-control">
-                <option data-display="Job Type">Show All</option>
-                <option value="1">Full Time</option>
-                <option value="2">Part Time</option>
-                <option value="3"> Internship</option>
-                <option value="4">Freelance</option>
-                <option value="5">Contract</option>
+                <select name="job_type" class="wide form-control">
+                    <option value="">Show All</option>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Freelance">Freelance</option>
+                    <option value="Contract">Contract</option>
                 </select>
             </div>
             <div class="col-md-2 col-sm-2 m-clear">
@@ -97,7 +97,3 @@
    </section> 
   
 @endsection
-
-
-
-

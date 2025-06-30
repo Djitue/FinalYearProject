@@ -10,22 +10,35 @@
             <h2>Connecting Talent With Opportunity </h2>
             <h3 style="color: white;">Unlock New Career Paths and Discover the Best Talent.</h3>
         </div>
-        <form action="{{ route('jobs.search') }}" method="GET">
+        <form action="{{ route('jobs.search') }}" method="GET" id="searchForm">
             <fieldset class="utf_home_form_one">
             <div class="col-md-4 col-sm-4 padd-0">
-                <input type="text" class="form-control br-1" placeholder="Search Keywords..." />
+                <input type="text" 
+                       name="keyword" 
+                       id="searchKeyword"
+                       class="form-control br-1" 
+                       placeholder="Job title, skills or keywords..." 
+                       autocomplete="off"
+                       list="search-suggestions" />
+                <datalist id="search-suggestions">
+                    <!-- Will be populated via JavaScript -->
+                </datalist>
             </div>
             <div class="col-md-3 col-sm-3 padd-0">
-                 <input type="text" class="form-control br-1" style="border-radius: 0;" placeholder="Town" />
+                 <input type="text" 
+                        name="town" 
+                        class="form-control br-1" 
+                        style="border-radius: 0;" 
+                        placeholder="Location" />
             </div>
             <div class="col-md-3 col-sm-3 padd-0">
-                <select class="wide form-control">
-                <option data-display="Job Type">Show All</option>
-                <option value="1">Full Time</option>
-                <option value="2">Part Time</option>
-                <option value="3"> Internship</option>
-                <option value="4">Freelance</option>
-                <option value="5">Contract</option>
+               <select name="job_type" class="wide form-control">
+                    <option value="">All Job Types</option>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Freelance">Freelance</option>
+                    <option value="Contract">Contract</option>
                 </select>
             </div>
             <div class="col-md-2 col-sm-2 padd-0 m-clear">
@@ -221,6 +234,47 @@
         </div>
     </div>
     </section> --}}
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchKeyword');
+            const datalist = document.getElementById('search-suggestions');
+            let typingTimer;
+
+            searchInput.addEventListener('input', function() {
+                clearTimeout(typingTimer);
+                
+                // Wait for user to stop typing for 300ms
+                typingTimer = setTimeout(function() {
+                    const keyword = searchInput.value;
+                    if (keyword.length >= 2) { // Only search if 2 or more characters
+                        fetch(`/api/search-suggestions?keyword=${encodeURIComponent(keyword)}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Clear existing options
+                                datalist.innerHTML = '';
+                                
+                                // Add new options
+                                data.forEach(suggestion => {
+                                    const option = document.createElement('option');
+                                    option.value = suggestion;
+                                    datalist.appendChild(option);
+                                });
+                            });
+                    }
+                }, 300);
+            });
+
+            // Clear suggestions when input is cleared
+            searchInput.addEventListener('change', function() {
+                if (!this.value) {
+                    datalist.innerHTML = '';
+                }
+            });
+        });
+    </script>
+    @endpush
 
 @endsection
 

@@ -162,3 +162,6 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/saved-jobs', [JobSeekerJobController::class, 'index'])
         ->name('saved-jobs.index');
 
+// Search suggestions API
+Route::get('/api/search-suggestions', [App\Http\Controllers\JobSearchController::class, 'suggestions']);
+

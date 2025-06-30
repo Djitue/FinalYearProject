@@ -37,7 +37,7 @@
       <div class="col-md-9 col-sm-7">
         <div class="emp-des">
           <h2>{{ $employer->name }}</h2>
-          <span class="theme-cl">{{ $employer->skill ?? 'No skill specified' }}</span>
+          {{-- <span class="theme-cl">{{ $employer->skill ?? 'No skill specified' }}</span> --}}
           <ul class="employer_detail_item">
             <li><i class="ti-credit-card padd-r-10"></i>Address: {{ $employer->address ?? 'No address specified' }}</li>
             <li><i class="ti-mobile padd-r-10"></i>Phone: {{ $employer->phone ?? 'No phone specified'}}</li>
