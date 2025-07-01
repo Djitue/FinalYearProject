@@ -31,8 +31,7 @@ class AuthJobSeekerController extends Controller
 
         Auth::login($user);
 
-       return view('welcome');
-
+        return redirect()->route('jobseeker.dashboard');
     }
     public function login(Request $request)
     {
@@ -44,12 +43,12 @@ class AuthJobSeekerController extends Controller
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
 
-            return view('dashboard.jobseeker');
+            return redirect()->route('jobseeker.dashboard');
         }
 
-       throw ValidationException::withMessages([
-        'credentials' => 'Sorry incorrect credentials'
-       ]);
+        throw ValidationException::withMessages([
+            'credentials' => 'Sorry incorrect credentials'
+        ]);
     }
 
     public function logout(Request $request)

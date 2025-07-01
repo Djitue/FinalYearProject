@@ -22,22 +22,22 @@
     <section class="padd-0 padd-top-20 jov_search_block_inner">
     <div class="row">
         <div class="container">
-        <form>
+        <form method="GET" action="{{ route('jobseeker.jobs') }}">
             <fieldset class="search-form">
             <div class="col-md-4 col-sm-4">
-                <input type="text" class="form-control" placeholder="Job Title, Keywords or Company Name..." />
+                <input type="text" name="keyword" class="form-control" placeholder="Job Title, Keywords or Company Name..." value="{{ request('keyword') }}" />
             </div>
             <div class="col-md-3 col-sm-3">
-                <input type="text" class="form-control" placeholder="Town" />
+                <input type="text" name="town" class="form-control" placeholder="Town" value="{{ request('town') }}" />
             </div>
             <div class="col-md-3 col-sm-3">
-                <select class="wide form-control">
-                <option data-display="Job Type">Show All</option>
-                <option value="1">Full Time</option>
-                <option value="2">Part Time</option>
-                <option value="3"> Internship</option>
-                <option value="4">Freelance</option>
-                <option value="5">Contract</option>
+                <select name="job_type" class="wide form-control">
+                <option value="">Show All</option>
+                <option value="Full Time" {{ request('job_type') == 'Full Time' ? 'selected' : '' }}>Full Time</option>
+                <option value="Part Time" {{ request('job_type') == 'Part Time' ? 'selected' : '' }}>Part Time</option>
+                <option value="Internship" {{ request('job_type') == 'Internship' ? 'selected' : '' }}>Internship</option>
+                <option value="Freelance" {{ request('job_type') == 'Freelance' ? 'selected' : '' }}>Freelance</option>
+                <option value="Contract" {{ request('job_type') == 'Contract' ? 'selected' : '' }}>Contract</option>
                 </select>
             </div>
             <div class="col-md-2 col-sm-2 m-clear">
@@ -64,7 +64,7 @@
                                         <i class="fa fa-heart"></i>
                                     </label>
                                 </div>
-                                @endauth
+                            @endauth
                             <div class="u-content">
                                 <h5>
                                     <a href="{{ route('jobs.show', $job->id) }}">
@@ -87,22 +87,34 @@
                                 <p class="text-muted"><i class="ti-location-pin padd-r-10"></i>{{ $job->town ?? 'Location not specified' }}</p>
                             </div>
                             <div class="utf_apply_job_btn_item">
-                                <a href="{{route('job.apply.submit', $job->id)}}" class="btn-job theme-btn job-apply">
+                                <a href="{{ route('job.apply.form', $job->id) }}" class="btn-job theme-btn job-apply">
                                     Apply Now
                                 </a>
                                 <a href="{{ route('jobs.show', $job->id) }}" title="" class="btn-job light-gray-btn">View Job</a>
                             </div>
                         </div>
                     </div>
-                    @empty
-                        <p class="text-center">No jobs available at the moment.</p>
+                @empty
+                    <div class="col-md-12">
+                        <div class="alert alert-info text-center">
+                            No jobs available at the moment.
+                        </div>
+                    </div>
                 @endforelse
+            </div>
+            
+            <!-- Pagination -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    {{ $jobs->appends(request()->query())->links() }}
+                </div>
             </div>
         </div>
    </section> 
   
 @endsection
 
+@section('scripts')
 <script>
    document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.save-job-checkbox').forEach(checkbox => {
@@ -121,18 +133,19 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'added') {
-                        icon.style.color = 'red'; // or your preferred color
+                        icon.style.color = 'red';
                     } else {
-                        icon.style.color = ''; // reset to default
+                        icon.style.color = '';
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    this.checked = !this.checked; // revert the checkbox
+                    this.checked = !this.checked;
                 });
             });
         });
     });
 </script>
+@endsection
 
 
