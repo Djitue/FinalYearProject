@@ -32,7 +32,8 @@
               </div>
             </div>
             <div class="form-group"> 
-                <a href="#" title="Forget" class="fl-right">Forgot Password?</a>
+                <a href="{{ route('jobseeker.password.request') }}" class="fl-right">Forgot Password?</a>
+            </div>
             <div class="col-md-12">
               <div class="form-group text-center mrg-top-15">
                 <button type="submit" class="btn theme-btn btn-m full-width">Login</button>

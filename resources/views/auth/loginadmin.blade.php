@@ -32,7 +32,8 @@
               </div>
             </div>
             <div class="form-group"> 
-                <a href="#" title="Forget" class="fl-right">Forgot Password?</a>
+                <a href="{{ route('admin.password.request') }}" class="fl-right">Forgot Password?</a>
+            </div>
             <div class="col-md-12">
               <div class="form-group text-center mrg-top-15">
                 <button type="submit" class="btn theme-btn btn-m full-width">Login</button>
@@ -41,7 +42,6 @@
 			      <div class="clearfix"></div>	
 
             <!-- validation errors -->
-
             @if ($errors->any())
               <ul class="px-4 py-2 bg-red-100">
                 @foreach($errors->all() as $error)
@@ -49,7 +49,6 @@
                 @endforeach
               </ul>
             @endif		
-
         </form>
       </div>
   </div>

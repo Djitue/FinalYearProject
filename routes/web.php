@@ -22,6 +22,12 @@ use App\Http\Controllers\Employer\ProfileController as EmployerProfileController
 use App\Http\Controllers\JobSeeker\ProfileController as JobSeekerProfileController;
 use App\Http\Controllers\Employer\DashboardController as EmployerDashboardController;
 use App\Http\Controllers\JobSeeker\DashboardController as JobSeekerDashboardController;
+use App\Http\Controllers\Auth\AdminForgotPasswordController;
+use App\Http\Controllers\Auth\AdminResetPasswordController;
+use App\Http\Controllers\Auth\EmployerForgotPasswordController;
+use App\Http\Controllers\Auth\EmployerResetPasswordController;
+use App\Http\Controllers\Auth\JobSeekerForgotPasswordController;
+use App\Http\Controllers\Auth\JobSeekerResetPasswordController;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
@@ -164,4 +170,34 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
 
 // Search suggestions API
 Route::get('/api/search-suggestions', [App\Http\Controllers\JobSearchController::class, 'suggestions']);
+
+// Password Reset Routes - Admin
+Route::get('/admin/forgot-password', [App\Http\Controllers\Auth\AdminForgotPasswordController::class, 'showLinkRequestForm'])
+    ->name('admin.password.request');
+Route::post('/admin/forgot-password', [App\Http\Controllers\Auth\AdminForgotPasswordController::class, 'sendResetLinkEmail'])
+    ->name('admin.password.email');
+Route::get('/admin/reset-password/{token}', [App\Http\Controllers\Auth\AdminResetPasswordController::class, 'showResetForm'])
+    ->name('admin.password.reset');
+Route::post('/admin/reset-password', [App\Http\Controllers\Auth\AdminResetPasswordController::class, 'reset'])
+    ->name('admin.password.update');
+
+// Password Reset Routes - Employer
+Route::get('/employer/forgot-password', [EmployerForgotPasswordController::class, 'showLinkRequestForm'])
+    ->name('employer.password.request');
+Route::post('/employer/forgot-password', [EmployerForgotPasswordController::class, 'sendResetLinkEmail'])
+    ->name('employer.password.email');
+Route::get('/employer/reset-password/{token}', [EmployerResetPasswordController::class, 'showResetForm'])
+    ->name('employer.password.reset');
+Route::post('/employer/reset-password', [EmployerResetPasswordController::class, 'reset'])
+    ->name('employer.password.update');
+
+// Password Reset Routes - JobSeeker
+Route::get('/jobseeker/forgot-password', [JobSeekerForgotPasswordController::class, 'showLinkRequestForm'])
+    ->name('jobseeker.password.request');
+Route::post('/jobseeker/forgot-password', [JobSeekerForgotPasswordController::class, 'sendResetLinkEmail'])
+    ->name('jobseeker.password.email');
+Route::get('/jobseeker/reset-password/{token}', [JobSeekerResetPasswordController::class, 'showResetForm'])
+    ->name('jobseeker.password.reset');
+Route::post('/jobseeker/reset-password', [JobSeekerResetPasswordController::class, 'reset'])
+    ->name('jobseeker.password.update');
 
