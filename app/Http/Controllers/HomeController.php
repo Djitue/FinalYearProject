@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $jobs = JobPosting::latest()->take(10)->get();
+        $jobs = JobPosting::with('employer')->latest()->take(12)->get();
         return view('welcome', compact('jobs'));
     }
 

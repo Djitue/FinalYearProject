@@ -19,9 +19,9 @@
       <div class="col-md-9 col-sm-8">
         <div class="row">
           <div class="col-md-3 col-sm-6">
-            <h4>Job Categories</h4>
+            <h4>Job Type</h4>
             <ul>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i> Work from Home</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i> Contract</a></li>
               <li><a href="#"><i class="fa fa-angle-double-right"></i> Internship Job</a></li>
               <li><a href="#"><i class="fa fa-angle-double-right"></i> Freelancer Job</a></li>
               <li><a href="#"><i class="fa fa-angle-double-right"></i> Part Time Job</a></li>
@@ -29,7 +29,7 @@
             </ul>
           </div>
           <div class="col-md-3 col-sm-6">
-            <h4>Job Type</h4>
+            <h4>Useful Links</h4>
             <ul>
               <li><a href="#"><i class="fa fa-angle-double-right"></i> Create Account</a></li>
               <li><a href="#"><i class="fa fa-angle-double-right"></i> Career Counseling</a></li>

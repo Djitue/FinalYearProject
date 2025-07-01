@@ -54,9 +54,16 @@
     <!-- ================= Job start ========================= -->
     <section class="padd-top-80 padd-bot-80">
     <div class="container"> 
-       <h2 style="text-align: center;">AVAILABLE JOBS</h2>
+       <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="heading">
+                    <h2>LATEST JOB OPPORTUNITIES</h2>
+                    <p>Discover the most recent job postings from top employers</p>
+                </div>
+            </div>
+        </div>
         <div class="tab-content"> 
-            <section class="padd-top-80 padd-bot-80">
+            <section class="padd-top-20 padd-bot-80">
                 <div class="container"> 
                     <div class="row">
                         @forelse($jobs as $job)
@@ -89,6 +96,7 @@
                                         </h5>
                                         <p class="text-muted"><i class="ti-credit-card padd-r-10"></i>{{ $job->salary ?? 'Salary not provided' }}</p>
                                         <p class="text-muted"><i class="ti-location-pin padd-r-10"></i>{{ $job->town ?? 'Location not specified' }}</p>
+                                        <p class="text-muted"><i class="ti-time padd-r-10"></i>Posted {{ $job->created_at->diffForHumans() }}</p>
                                     </div>
                                     <div class="utf_apply_job_btn_item">
                                         <a href="{{route('loginjobseeker')}}" class="btn-job theme-btn job-apply">
@@ -99,7 +107,9 @@
                                 </div>
                             </div>
                             @empty
-                                <p>No jobs available at the moment.</p>
+                                <div class="col-md-12 text-center">
+                                    <p>No jobs available at the moment.</p>
+                                </div>
                         @endforelse
                     </div>
                 </div>

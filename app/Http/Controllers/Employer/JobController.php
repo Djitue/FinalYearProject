@@ -264,15 +264,15 @@ class JobController extends Controller
 
         $requiredEducation = strtolower(trim($job->requirement));
 
-        // ✅ Get user IDs of job seekers who applied to this job
+        // Get user IDs of job seekers who applied to this job
         $appliedUserIds = Application::where('job_posting_id', $id)
                                     ->pluck('user_id')
                                     ->toArray();
 
-        // ✅ Get only those users who applied
+        // Get only those users who applied
         $jobSeekers = User::whereIn('id', $appliedUserIds)->get();
 
-        // ✅ Matching logic
+        // Matching logic with percentage calculation
         $matchedSeekers = $jobSeekers->filter(function ($seeker) use ($requiredSkills, $requiredEducation) {
             $seekerSkills = collect(explode(',', $seeker->skill))
                                 ->map(fn($s) => strtolower(trim($s)))
@@ -289,8 +289,16 @@ class JobController extends Controller
 
             $seeker->matched_skills = $seekerSkills->intersect($requiredSkills);
             $seeker->matched_count = $seeker->matched_skills->count();
+            
+            // Calculate match percentage
+            $totalRequiredSkills = $requiredSkills->count();
+            $matchedSkillsCount = $seeker->matched_count;
+            $seeker->match_percentage = $totalRequiredSkills > 0 
+                ? round(($matchedSkillsCount / $totalRequiredSkills) * 100) 
+                : 0;
+            
             return $seeker;
-        })->sortByDesc('matched_count')->values();
+        })->sortByDesc('match_percentage')->values();
 
         return view('employer.matched_job_seeker', compact('matchedSeekers', 'job'));
     }

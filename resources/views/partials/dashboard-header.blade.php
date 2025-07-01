@@ -26,6 +26,80 @@
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&amp;display=swap" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&amp;display=swap" rel="stylesheet"> 
+
+<style>
+.logout-btn {
+    padding: 8px 15px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 15px;
+}
+.logout-btn:hover {
+    background-color: #c82333;
+    color: white;
+    text-decoration: none;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #333;
+    padding: 10px 0;
+}
+.user-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.user-text {
+    text-align: left;
+}
+.user-role {
+    font-size: 12px;
+    color: #666;
+    display: block;
+    margin-top: -3px;
+}
+.user-name {
+    font-weight: 600;
+    display: block;
+    line-height: 1.2;
+    font-size: 14px;
+}
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #28a745;
+}
+.nav-user-container {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin-left: auto;
+}
+/* Ensure the right side menu items are properly aligned */
+.navbar-right {
+    float: right !important;
+    margin-right: -15px;
+}
+@media (max-width: 767px) {
+    .nav-user-container {
+        width: 100%;
+        justify-content: center;
+        margin: 10px 0;
+    }
+    .navbar-right {
+        float: none !important;
+        margin-right: 0;
+    }
+}
+</style>
 </head>
 <body class="utf_skin_area">
 <div class="page_preloader"></div>
@@ -37,35 +111,79 @@
        <a href="{{url('/')}}"><h2 style="color: #28a745;">JOBSPHERE237</h2></a>
 	</div>
     <div class="collapse navbar-collapse" id="navbar-menu">
-      <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+      <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
         <li class="dropdown"> <a href="{{url('/')}}">Home</a> </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employer</a>
-          <ul class="dropdown-menu animated fadeOutUp">
-            {{-- <li><a href="employer.html">Employer</a></li> --}}
-            <li><a href="{{route('loginemployer')}}">Employer Login</a></li>
-            <li><a href="{{route('registeremployer')}}">Employer Register</a></li>
-            {{-- <li><a href="manage-resume.html">Manage Resume</a></li> --}}
-            <li><a href="loginemployer">Add Job</a></li>
-            {{-- <li><a href="resume-detail.html">Resume Detail</a></li> --}}
-          </ul>
-        </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Candidate</a>
-          <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="{{route('registerjobseeker')}}">Job Seeker Register</a></li>
-            <li><a href="{{route('loginjobseeker')}}">Job Seeker Login</a></li>
-            {{-- <li><a href="manage-job.html">Manage Jobs</a></li>
-            <li><a href="browse-category.html">Browse Categories</a></li> --}}
-          </ul>
-        </li>
-        {{-- <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
-          <ul class="dropdown-menu animated fadeOutUp">
-            <li><a href="profile-settings.html">Profile Settings</a></li>
-            <li><a href="job-detail.html">Job Detail</a></li>
-            <li><a href="job-layout-one.html">Job Layout One</a></li>
-            <li><a href="404.html">404</a></li>
-          </ul>
-        </li> --}}
-        <li class="dropdown"> <a href="contact.html">Contact</a> </li>
+        @if(Auth::guard('employer')->check())
+        <li><a href="{{ route('employer.dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ route('employer.manage-job') }}">Manage Jobs</a></li>
+        @elseif(Auth::guard('web')->check())
+        <li><a href="{{ route('jobseeker.dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ route('jobseeker.jobs') }}">Browse Jobs</a></li>
+        @elseif(Auth::guard('admin')->check())
+        <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+        @endif
+      </ul>
+      
+      <!-- Right Side User Info and Logout -->
+      <ul class="nav navbar-nav navbar-right">
+        @if(Auth::guard('employer')->check())
+            <li class="nav-user-container">
+                <div class="user-info">
+                    <div class="user-details">
+                        <img src="{{ Auth::guard('employer')->user()->logo ? asset('storage/' . Auth::guard('employer')->user()->logo) : asset('assets/img/user-profile.png') }}" 
+                             alt="Profile" class="profile-image">
+                        <div class="user-text">
+                            <span class="user-name">{{ Auth::guard('employer')->user()->name }}</span>
+                            <span class="user-role">Employer</span>
+                        </div>
+                    </div>
+                    <form action="{{ route('employer.logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="logout-btn">
+                            <i class="ti-power-off"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </li>
+        @elseif(Auth::guard('web')->check())
+            <li class="nav-user-container">
+                <div class="user-info">
+                    <div class="user-details">
+                        <img src="{{ Auth::guard('web')->user()->profile_picture ? asset('storage/' . Auth::guard('web')->user()->profile_picture) : asset('assets/img/user-profile.png') }}" 
+                             alt="Profile" class="profile-image">
+                        <div class="user-text">
+                            <span class="user-name">{{ Auth::guard('web')->user()->name }}</span>
+                            <span class="user-role">Job Seeker</span>
+                        </div>
+                    </div>
+                    <form action="{{ route('jobseeker.logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="logout-btn">
+                            <i class="ti-power-off"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </li>
+        @elseif(Auth::guard('admin')->check())
+            <li class="nav-user-container">
+                <div class="user-info">
+                    <div class="user-details">
+                        <img src="{{ Auth::guard('admin')->user()->profile_picture ? asset('storage/' . Auth::guard('admin')->user()->profile_picture) : asset('assets/img/user-profile.png') }}" 
+                             alt="Profile" class="profile-image">
+                        <div class="user-text">
+                            <span class="user-name">{{ Auth::guard('admin')->user()->name }}</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                    </div>
+                    <form action="{{ route('admin.logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="logout-btn">
+                            <i class="ti-power-off"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </li>
+        @endif
       </ul>
     </div>
   </div>
