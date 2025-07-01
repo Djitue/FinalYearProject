@@ -29,9 +29,9 @@ class AuthEmployerController extends Controller
 
         $employer = Employer::create($validated);
 
-        Auth::login($employer);
+        Auth::guard('employer')->login($employer);
 
-        return view('welcome');
+        return redirect()->route('employer.dashboard');
     }
     public function login(Request $request)
     {

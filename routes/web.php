@@ -46,11 +46,13 @@ Route::post('/jobseeker/register',[AuthJobSeekerController::class, 'register'])-
 Route::post('/jobseeker/login',[AuthJobSeekerController::class, 'login'])->name('loginjobseeker');
 // Route::post('/jobseeker/logout',[AuthJobSeekerController::class, 'logout'])->name('logoutjobseeker');
 
-Route::get('/admin1/register',[AuthAdminController::class, 'showRegister'])->name('show.registeradmin');
-Route::get('/admin1/login',[AuthAdminController::class, 'showLogin'])->name('show.loginadmin');
-Route::post('/admin1/register',[AuthAdminController::class, 'register'])->name('registeradmin');
-Route::post('/admin1/login',[AuthAdminController::class, 'login'])->name('loginadmin');
-// Route::post('/admin/logout',[AuthAdminController::class, 'logout'])->name('logoutadmin');
+// Admin Auth Routes
+Route::middleware(['web'])->group(function () {
+    Route::get('/admin1/register',[AuthAdminController::class, 'showRegister'])->name('show.registeradmin');
+    Route::get('/admin1/login',[AuthAdminController::class, 'showLogin'])->name('show.loginadmin');
+    Route::post('/admin1/register',[AuthAdminController::class, 'register'])->name('registeradmin');
+    Route::post('/admin1/login',[AuthAdminController::class, 'login'])->name('loginadmin');
+});
 
 // Employer Dashboard
 Route::middleware(['auth:employer'])->group(function () {

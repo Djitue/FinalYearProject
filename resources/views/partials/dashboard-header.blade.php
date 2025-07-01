@@ -113,12 +113,12 @@
     <div class="collapse navbar-collapse" id="navbar-menu">
       <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
         <li class="dropdown"> <a href="{{url('/')}}">Home</a> </li>
-        @if(Auth::guard('employer')->check())
-        <li><a href="{{ route('employer.dashboard') }}">Dashboard</a></li>
-        <li><a href="{{ route('employer.manage-job') }}">Manage Jobs</a></li>
-        @elseif(Auth::guard('web')->check())
+        @if(Auth::guard('web')->check())
         <li><a href="{{ route('jobseeker.dashboard') }}">Dashboard</a></li>
         <li><a href="{{ route('jobseeker.jobs') }}">Browse Jobs</a></li>
+        @elseif(Auth::guard('employer')->check())
+        <li><a href="{{ route('employer.dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ route('employer.manage-job') }}">Manage Jobs</a></li>
         @elseif(Auth::guard('admin')->check())
         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
         @endif
@@ -126,26 +126,7 @@
       
       <!-- Right Side User Info and Logout -->
       <ul class="nav navbar-nav navbar-right">
-        @if(Auth::guard('employer')->check())
-            <li class="nav-user-container">
-                <div class="user-info">
-                    <div class="user-details">
-                        <img src="{{ Auth::guard('employer')->user()->logo ? asset('storage/' . Auth::guard('employer')->user()->logo) : asset('assets/img/user-profile.png') }}" 
-                             alt="Profile" class="profile-image">
-                        <div class="user-text">
-                            <span class="user-name">{{ Auth::guard('employer')->user()->name }}</span>
-                            <span class="user-role">Employer</span>
-                        </div>
-                    </div>
-                    <form action="{{ route('employer.logout') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="logout-btn">
-                            <i class="ti-power-off"></i> Logout
-                        </button>
-                    </form>
-                </div>
-            </li>
-        @elseif(Auth::guard('web')->check())
+        @if(Auth::guard('web')->check())
             <li class="nav-user-container">
                 <div class="user-info">
                     <div class="user-details">
@@ -157,6 +138,25 @@
                         </div>
                     </div>
                     <form action="{{ route('jobseeker.logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="logout-btn">
+                            <i class="ti-power-off"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </li>
+        @elseif(Auth::guard('employer')->check())
+            <li class="nav-user-container">
+                <div class="user-info">
+                    <div class="user-details">
+                        <img src="{{ Auth::guard('employer')->user()->profile_picture ? asset('storage/' . Auth::guard('employer')->user()->profile_picture) : asset('assets/img/user-profile.png') }}" 
+                             alt="Profile" class="profile-image">
+                        <div class="user-text">
+                            <span class="user-name">{{ Auth::guard('employer')->user()->name }}</span>
+                            <span class="user-role">Employer</span>
+                        </div>
+                    </div>
+                    <form action="{{ route('employer.logout') }}" method="POST" style="display: inline;">
                         @csrf
                         <button type="submit" class="logout-btn">
                             <i class="ti-power-off"></i> Logout

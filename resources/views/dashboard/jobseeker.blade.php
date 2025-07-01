@@ -80,9 +80,9 @@
 
 			<!-- Create CV -->
 			<div class="col-md-4 col-sm-4">
-				<a href="#" style="text-decoration: none;">
+				<a href="https://www.canva.com/create/resumes/" target="_blank" style="text-decoration: none;" title="Create a professional CV using Canva's free CV maker">
 					<div class="statusbox">
-						<h3>Create CV</h3>
+						<h3>Create CV <i class="fa fa-external-link" style="font-size: 14px;"></i></h3>
 						<div class="statusbox-content">
 							<p class="ic_status_item ic_col_two">
 								<i class="fa fa-file"></i>
