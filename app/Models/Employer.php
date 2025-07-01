@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class Employer extends Authenticatable implements CanResetPasswordContract
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable, CanResetPassword;
+    use HasFactory, Notifiable, CanResetPassword;
+
+    protected $guard = 'employer';
 
     /**
      * The attributes that are mass assignable.
@@ -25,11 +26,17 @@ class Employer extends Authenticatable implements CanResetPasswordContract
         'email',
         'password',
         'phone',
+        'company_name',
+        'company_logo',
+        'company_website',
+        'company_description',
         'address',
-        'gender',
-        'facebook',
-        'linkedin',
-        'profile_picture',
+        'town',
+        'country',
+        'postal_code',
+        'company_size',
+        'industry',
+        'founded_year'
     ];
 
     /**
@@ -42,21 +49,18 @@ class Employer extends Authenticatable implements CanResetPasswordContract
         'remember_token',
     ];
 
-    public function jobs()
-        {
-            return $this->hasMany(JobPosting::class);
-        }
-
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    public function jobs()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(JobPosting::class);
     }
 }

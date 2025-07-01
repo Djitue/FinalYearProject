@@ -36,9 +36,26 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
               <label>Category</label>
               <select name="category" class="wide form-control">
-                <option data-display="Information Of Technology">Information Of Technology</option>
-                <option value="1">Hardware</option>
-                <option value="2">Machanical</option>
+                <option data-display="Accounting & Finance">Accounting & Finance</option>
+                <option value="Administration / Secretarial">Administration / Secretarial</option>
+                <option value="Advertising / Marketing">Advertising / Marketing</option>
+                <option value="Agriculture / Farming">Agriculture / Farming</option>
+                <option value="Banking / Insurance">Banking / Insurance</option>
+                <option value="Construction ">Construction </option>
+                <option value="Customer Service ">Customer Service </option>
+                <option value="Education ">Education </option>
+                <option value="Healthcare ">Healthcare </option>
+                <option value="IT  ">IT  </option>
+                <option value="Logistics  ">Logistics  </option>
+                <option value="Petrochemical ">Petrochemical </option>
+                <option value="Real Estate ">Real Estate </option>
+                <option value="Retail  ">Retail  </option>
+                <option value="Petrochemical ">Petrochemical </option>
+                <option value="Skilled & Unskilled Labour ">Skilled & Unskilled Labour </option>
+                <option value="Media  ">Media  </option>
+                <option value="Law ">Law </option>
+                <option value="NGO ">NGO </option>
+                {{-- <option value="Others ">others </option> --}}
               </select>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12 m-clear">
