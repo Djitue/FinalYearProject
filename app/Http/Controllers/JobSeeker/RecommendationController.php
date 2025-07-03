@@ -14,27 +14,48 @@ class RecommendationController extends Controller
         $user = auth()->user();
 
         if (!$user || !$user->skill) {
-            return redirect()->route('job_seekers.edit-profile')
+            return redirect()->route('jobseeker.edit-profile')
                 ->with('error', 'Please complete your profile and add skills to get job recommendations.');
         }
 
         // Convert user's skills to a lowercase, trimmed array
-        $seekerSkills = collect(explode(',', strtolower($user->skill)))
+        $userSkills = collect(explode(',', strtolower($user->skill)))
                         ->map(fn($skill) => trim($skill))
                         ->filter();
 
-        // Fetch all jobs and filter based on matching skills
-        $jobs = JobPosting::all()->filter(function ($job) use ($seekerSkills) {
-            if (!$job->skill) return false;
+        // Fetch all active jobs
+        $allJobs = JobPosting::all();
 
+        // Calculate match scores for each job based only on skills
+        $matchedJobs = $allJobs->map(function ($job) use ($userSkills) {
+            if (!$job->skill) return null;
+
+            // Convert job skills to array
             $jobSkills = collect(explode(',', strtolower($job->skill)))
                         ->map(fn($skill) => trim($skill))
                         ->filter();
 
-            return $seekerSkills->intersect($jobSkills)->isNotEmpty();
-        });
+            // Find matching skills
+            $matchedSkills = $userSkills->intersect($jobSkills);
+            
+            // Calculate match percentage based on how many of the user's skills match the job's required skills
+            $matchPercentage = $userSkills->count() > 0 
+                ? ($matchedSkills->count() / $userSkills->count()) * 100 
+                : 0;
 
-        return view('jobseeker.recommended_jobs', compact('jobs'));
+            // Only include jobs with at least 20% skill match
+            if ($matchPercentage < 20) {
+                return null;
+            }
+
+            $job->match_percentage = round($matchPercentage);
+            $job->matched_skills = $matchedSkills->values()->toArray();
+            
+            return $job;
+        })->filter()  // Remove null values
+          ->sortByDesc('match_percentage')
+          ->values();
+
+        return view('jobseeker.recommended_jobs', ['jobs' => $matchedJobs]);
     }
-
 }

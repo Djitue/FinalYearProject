@@ -51,10 +51,10 @@
                                 <p class="text-muted"><i class="ti-location-pin padd-r-10"></i>{{ $job->town ?? 'Location not specified' }}</p>
                             </div>
                             <div class="utf_apply_job_btn_item">
-                                <a href="{{route('job.apply.submit', $job->id)}}" class="btn-job theme-btn job-apply">
+                                <a href="{{route('loginjobseeker')}}" class="btn-job theme-btn job-apply">
                                     Apply Now
                                 </a>
-                                <a href="{{ route('jobs.show', $job->id) }}" title="" class="btn-job light-gray-btn">View Job</a>
+                                <a href="{{ route('job.details', ['id' => $job->id]) }}" title="" class="btn-job light-gray-btn">View Job</a>
                             </div>
                         </div>
                     </div>

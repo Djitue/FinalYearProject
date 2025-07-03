@@ -37,7 +37,7 @@
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Education</th>
+            <th>Resume</th>
             <th>Match %</th>
             <th>Matched Skills</th>
           </tr>
@@ -48,7 +48,18 @@
               <td>{{ $index + 1 }}</td>
               <td>{{ $seeker->name }}</td>
               <td>{{ $seeker->email }}</td>
-              <td>{{ $seeker->education }}</td>
+              <td>
+                @php
+                  $application = $job->applications->where('user_id', $seeker->id)->first();
+                @endphp
+                @if($application && $application->cv)
+                  <a href="{{ asset('storage/' . $application->cv) }}" target="_blank" class="btn theme-btn btn-sm">
+                    <i class="fa fa-file-pdf-o"></i> View Resume
+                  </a>
+                @else
+                  <span class="text-muted">No resume available</span>
+                @endif
+              </td>
               <td>
                 <div class="progress" style="height: 20px;">
                   <div class="progress-bar @if($seeker->match_percentage >= 75) bg-success 

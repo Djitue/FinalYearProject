@@ -258,47 +258,51 @@ class JobController extends Controller
     {
         $job = JobPosting::findOrFail($id);
 
+        // Process required skills and education
         $requiredSkills = collect(explode(',', $job->skill))
-                            ->map(fn($s) => strtolower(trim($s)))
-                            ->filter();
-
+                        ->map(fn($s) => strtolower(trim($s)))
+                        ->filter();
         $requiredEducation = strtolower(trim($job->requirement));
 
         // Get user IDs of job seekers who applied to this job
         $appliedUserIds = Application::where('job_posting_id', $id)
-                                    ->pluck('user_id')
-                                    ->toArray();
+                                ->pluck('user_id')
+                                ->toArray();
 
-        // Get only those users who applied
+        // Get all users who have applied
         $jobSeekers = User::whereIn('id', $appliedUserIds)->get();
 
         // Matching logic with percentage calculation
-        $matchedSeekers = $jobSeekers->filter(function ($seeker) use ($requiredSkills, $requiredEducation) {
-            $seekerSkills = collect(explode(',', $seeker->skill))
-                                ->map(fn($s) => strtolower(trim($s)))
-                                ->filter();
+        $matchedSeekers = $jobSeekers->map(function ($seeker) use ($requiredSkills, $requiredEducation) {
+            $seekerSkills = collect(explode(',', $seeker->skill ?? ''))
+                            ->map(fn($s) => strtolower(trim($s)))
+                            ->filter();
 
             $matchedSkills = $seekerSkills->intersect($requiredSkills);
-
-            return $matchedSkills->count() > 0 &&
-                str_contains(strtolower($seeker->education), $requiredEducation);
-        })->map(function ($seeker) use ($requiredSkills) {
-            $seekerSkills = collect(explode(',', $seeker->skill))
-                                ->map(fn($s) => strtolower(trim($s)))
-                                ->filter();
-
-            $seeker->matched_skills = $seekerSkills->intersect($requiredSkills);
-            $seeker->matched_count = $seeker->matched_skills->count();
-            
-            // Calculate match percentage
+            $matchedSkillsCount = $matchedSkills->count();
             $totalRequiredSkills = $requiredSkills->count();
-            $matchedSkillsCount = $seeker->matched_count;
-            $seeker->match_percentage = $totalRequiredSkills > 0 
-                ? round(($matchedSkillsCount / $totalRequiredSkills) * 100) 
+
+            // Calculate skill match percentage
+            $skillMatchPercentage = $totalRequiredSkills > 0 
+                ? ($matchedSkillsCount / $totalRequiredSkills) * 100 
                 : 0;
+
+            // Calculate education match (basic text matching)
+            $educationMatchScore = str_contains(strtolower($seeker->education ?? ''), $requiredEducation) ? 100 : 0;
+
+            // Calculate overall match percentage (70% skills, 30% education)
+            $overallMatchPercentage = ($skillMatchPercentage * 0.7) + ($educationMatchScore * 0.3);
+
+            $seeker->matched_skills = $matchedSkills;
+            $seeker->matched_count = $matchedSkillsCount;
+            $seeker->match_percentage = round($overallMatchPercentage);
             
             return $seeker;
-        })->sortByDesc('match_percentage')->values();
+        })->filter(function ($seeker) {
+            // Filter out candidates with 0% match
+            return $seeker->match_percentage > 0;
+        })->sortByDesc('match_percentage')
+        ->values();
 
         return view('employer.matched_job_seeker', compact('matchedSeekers', 'job'));
     }

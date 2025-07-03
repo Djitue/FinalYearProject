@@ -28,76 +28,34 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&amp;display=swap" rel="stylesheet"> 
 
 <style>
-.logout-btn {
-    padding: 8px 15px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: 15px;
-}
-.logout-btn:hover {
-    background-color: #c82333;
-    color: white;
-    text-decoration: none;
-}
-.user-info {
+.logout-container {
     display: flex;
     align-items: center;
-    gap: 15px;
-    color: #333;
-    padding: 10px 0;
-}
-.user-details {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.user-text {
-    text-align: left;
-}
-.user-role {
-    font-size: 12px;
-    color: #666;
-    display: block;
-    margin-top: -3px;
-}
-.user-name {
-    font-weight: 600;
-    display: block;
-    line-height: 1.2;
-    font-size: 14px;
-}
-.profile-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #28a745;
-}
-.nav-user-container {
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
+    height: 100%;
+    padding-right: 15px;
     margin-left: auto;
 }
-/* Ensure the right side menu items are properly aligned */
-.navbar-right {
-    float: right !important;
-    margin-right: -15px;
+
+.logout-btn {
+    background: none;
+    border: none;
+    color: #333;
+    padding: 8px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
 }
-@media (max-width: 767px) {
-    .nav-user-container {
-        width: 100%;
-        justify-content: center;
-        margin: 10px 0;
-    }
-    .navbar-right {
-        float: none !important;
-        margin-right: 0;
-    }
+
+.logout-btn:hover {
+    color: #28a745;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 </style>
 </head>
@@ -127,61 +85,31 @@
       <!-- Right Side User Info and Logout -->
       <ul class="nav navbar-nav navbar-right">
         @if(Auth::guard('web')->check())
-            <li class="nav-user-container">
-                <div class="user-info">
-                    <div class="user-details">
-                        <img src="{{ Auth::guard('web')->user()->profile_picture ? asset('storage/' . Auth::guard('web')->user()->profile_picture) : asset('assets/img/user-profile.png') }}" 
-                             alt="Profile" class="profile-image">
-                        <div class="user-text">
-                            <span class="user-name">{{ Auth::guard('web')->user()->name }}</span>
-                            <span class="user-role">Job Seeker</span>
-                        </div>
-                    </div>
-                    <form action="{{ route('jobseeker.logout') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="logout-btn">
-                            <i class="ti-power-off"></i> Logout
-                        </button>
-                    </form>
-                </div>
+            <li class="logout-container">
+                <form action="{{ route('jobseeker.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="logout-btn">
+                        <i class="ti-power-off"></i> Logout
+                    </button>
+                </form>
             </li>
         @elseif(Auth::guard('employer')->check())
-            <li class="nav-user-container">
-                <div class="user-info">
-                    <div class="user-details">
-                        <img src="{{ Auth::guard('employer')->user()->profile_picture ? asset('storage/' . Auth::guard('employer')->user()->profile_picture) : asset('assets/img/user-profile.png') }}" 
-                             alt="Profile" class="profile-image">
-                        <div class="user-text">
-                            <span class="user-name">{{ Auth::guard('employer')->user()->name }}</span>
-                            <span class="user-role">Employer</span>
-                        </div>
-                    </div>
-                    <form action="{{ route('employer.logout') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="logout-btn">
-                            <i class="ti-power-off"></i> Logout
-                        </button>
-                    </form>
-                </div>
+            <li class="logout-container">
+                <form action="{{ route('employer.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="logout-btn">
+                        <i class="ti-power-off"></i> Logout
+                    </button>
+                </form>
             </li>
         @elseif(Auth::guard('admin')->check())
-            <li class="nav-user-container">
-                <div class="user-info">
-                    <div class="user-details">
-                        <img src="{{ Auth::guard('admin')->user()->profile_picture ? asset('storage/' . Auth::guard('admin')->user()->profile_picture) : asset('assets/img/user-profile.png') }}" 
-                             alt="Profile" class="profile-image">
-                        <div class="user-text">
-                            <span class="user-name">{{ Auth::guard('admin')->user()->name }}</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
-                    </div>
-                    <form action="{{ route('admin.logout') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="logout-btn">
-                            <i class="ti-power-off"></i> Logout
-                        </button>
-                    </form>
-                </div>
+            <li class="logout-container">
+                <form action="{{ route('admin.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="logout-btn">
+                        <i class="ti-power-off"></i> Logout
+                    </button>
+                </form>
             </li>
         @endif
       </ul>

@@ -15,21 +15,30 @@ class AnalyticsController extends Controller
 {
     public function analytics()
     {
+        // Get current date for comparisons
+        $today = Carbon::today();
+
+        // Basic counts
         $totalEmployers = Employer::count();
         $totalJobseekers = User::count();
         $totalAdmins = Admin::count();
         $totalUsers = $totalJobseekers + $totalEmployers + $totalAdmins;
-        $totalJobs = Jobposting::count();
+
+        // Job related counts
+        $totalJobs = JobPosting::count();
+        $expiredJobs = JobPosting::whereDate('deadline', '<', $today)->count();
+        $activeJobs = $totalJobs - $expiredJobs;
         $totalApplications = Application::count();
 
-        $today = Carbon::today();
-
-        $expiredJobs = JobPosting::whereDate('deadline', '<', $today)->count();
-        // $activeJobs = JobPosting::whereDate('deadline', '>=', $today)->count();
-
         return view('admin.analytics.index', compact(
-            'totalEmployers', 'totalJobseekers', 'totalJobs',
-             'expiredJobs', 'totalApplications', 'totalAdmins', 'totalUsers'
+            'totalEmployers',
+            'totalJobseekers',
+            'totalAdmins',
+            'totalUsers',
+            'totalJobs',
+            'activeJobs',
+            'expiredJobs',
+            'totalApplications'
         ));
     }
 }
